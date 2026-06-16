@@ -3,16 +3,92 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 英語學習互動指南 v2.2</title>
-<link rel="stylesheet" href="assets/style.css">
+<title>AI 英語學習互動指南 v2.3</title>
+<style>
+:root {
+  --bg:#F7F3EA; --panel:#FFFDF7; --side:#EEE7DA; --ink:#242424; --muted:#6f6658;
+  --green:#2F4F4F; --blue:#3F4E6B; --line:#D8CFBF; --prompt:#1F2430; --promptText:#F5F7FA;
+  --ok:#DDEEDC; --warn:#F6D6D6; --yellow:#FFF2B8;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans TC","Segoe UI",sans-serif;line-height:1.7}
+a{color:var(--green);text-decoration:none}
+.layout{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+aside{background:var(--side);border-right:1px solid var(--line);padding:24px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-weight:900;font-size:22px;line-height:1.2;margin-bottom:8px}
+.version{font-size:12px;color:var(--muted);margin-bottom:20px}
+nav a{display:block;padding:9px 10px;border-radius:10px;margin:3px 0;color:var(--ink)}
+nav a:hover{background:rgba(47,79,79,.1)}
+main{padding:28px;max-width:1180px;width:100%;margin:0 auto}
+.hero{background:linear-gradient(135deg,#fffdf7,#eee7da);border:1px solid var(--line);border-radius:28px;padding:30px;margin-bottom:22px;box-shadow:0 10px 30px rgba(40,30,10,.06)}
+.hero h1{font-size:34px;line-height:1.15;margin:0 0 12px}
+.subtitle{font-size:17px;color:var(--muted);max-width:850px}
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.quick{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px}
+.quick b{color:var(--green)}
+.section{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:26px;margin:22px 0;box-shadow:0 6px 20px rgba(40,30,10,.04)}
+.section-head{border-bottom:1px solid var(--line);margin-bottom:18px;padding-bottom:10px}
+.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+h2{font-size:27px;line-height:1.25;margin:.2em 0}
+h3{font-size:21px;margin:1.2em 0 .45em;color:var(--green)}
+h4{font-size:17px;margin:1em 0 .25em;color:var(--blue)}
+blockquote{border-left:5px solid var(--green);background:#f3eedf;padding:10px 14px;margin:12px 0;border-radius:10px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px;margin:12px 0}
+table{border-collapse:collapse;width:100%;min-width:560px;background:#fff}
+th,td{border-bottom:1px solid var(--line);padding:10px;vertical-align:top;text-align:left}
+th{background:#f0eadf;color:var(--green)}
+pre{background:var(--prompt);color:var(--promptText);padding:14px;border-radius:14px;overflow:auto}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 18px}
+.filter-btn{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;cursor:pointer}
+.filter-btn.active{background:var(--green);color:white}
+.resource-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.resource-card{border:1px solid var(--line);border-radius:18px;background:#fffdf9;padding:16px}
+.card-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-weight:700}
+.resource-card h3{margin:.4em 0;font-size:18px}
+.tag,.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 8px;margin:2px;font-size:12px;background:#fff}
+.pill{background:#eef5ef;color:var(--green);font-weight:700}
+.warn{background:#fff6f2;border-left:4px solid #c87958;padding:9px;border-radius:8px}
+.prompt-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.prompt-card{border:1px solid var(--line);border-radius:18px;background:#fff;margin:10px 0;overflow:hidden}
+.prompt-card summary{cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.prompt-card summary span{font-size:12px;color:var(--muted);white-space:nowrap}
+.prompt-card[open]{box-shadow:0 8px 20px rgba(30,30,20,.06)}
+.prompt-card > *:not(summary){margin-left:16px;margin-right:16px}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+textarea{width:calc(100% - 32px);min-height:180px;margin:8px 16px 8px 0;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--prompt);color:var(--promptText);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;line-height:1.55}
+button{border:0;background:var(--green);color:white;border-radius:12px;padding:9px 13px;cursor:pointer;font-weight:700;margin:6px 0 12px}
+.subdetails{background:#f7f4ec;border:1px solid var(--line);border-radius:14px;padding:8px;margin:10px 16px 12px 0}
+.after{background:var(--ok);border-radius:12px;padding:10px}
+.small-label{font-size:12px;font-weight:800;color:var(--muted);display:block;margin-top:10px}
+.ai-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ai-map div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.about{font-size:14px;color:var(--muted)}
+.source-list a{word-break:break-word}
+.copy-note{font-size:13px;color:var(--muted);background:#fff7df;border:1px solid var(--line);padding:9px;border-radius:12px}
+@media(max-width:900px){
+ aside{max-height:42vh;overflow:auto}
+
+ .layout{display:block}
+ aside{position:relative;height:auto;border-right:0;border-bottom:1px solid var(--line)}
+ nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+ main{padding:16px}
+ .quick-grid,.resource-grid,.meta-grid,.ai-map{grid-template-columns:1fr}
+ .hero h1{font-size:28px}
+ .section{padding:18px;border-radius:20px}
+ textarea{width:calc(100% - 16px);min-height:220px}
+ .prompt-card summary{align-items:flex-start;flex-direction:column}
+}
+</style>
 </head>
 <body>
 <div class="layout">
 <aside>
   <div class="brand">AI 英語學習互動指南</div>
-  <div class="version">v2.2 GitHub Pages Credit Final</div>
+  <div class="version">v2.3 Static Fallback</div>
   <nav>
     <a href="#start">開始使用</a>
+    <a href="#attribution-notice">來源聲明</a>
     <a href="#ai-tools">AI 對應</a>
     <a href="#chapter-1">認知篇</a>
     <a href="#chapter-2">單詞篇</a>
@@ -31,12 +107,20 @@
 <main>
 <section class="hero" id="start">
   <h1>把英文學習變成「可開始、可練習、可複習」的 AI 工具</h1>
-  <p class="subtitle">這是 GitHub Pages 多檔版。首頁保持乾淨，章節、資源與 Prompt 卡分開放在 data 資料檔中，方便維護與擴充。</p>
+  <p class="subtitle">這不是單純閱讀指南。你可以先選技能、看章節、挑資源、複製 Prompt，貼到 Gemini、ChatGPT、Claude 或其他 AI，完成一次真正的練習。</p>
   <div class="quick-grid">
     <div class="quick"><b>第一次使用</b><br>先做 C01 學習目標診斷，再做 C06 輸出驅動計畫。</div>
     <div class="quick"><b>沒有材料</b><br>去 C08 / C14 / C53，選「請 AI 幫我生成」。</div>
     <div class="quick"><b>有材料</b><br>貼單字、文章、影片逐字稿或作文，讓 AI 出題、批改、整理錯誤。</div>
   </div>
+  <ol>
+    <li>先選你要練：單字、聽力、閱讀、口說、寫作或 AI。</li>
+    <li>看該章「正確做法」與「今日練習」。</li>
+    <li>到 Resource Navigator 選材料。</li>
+    <li>打開對應 Prompt 卡，複製到 AI。</li>
+    <li>照 AI 要求回答、重說、重寫或做測驗。</li>
+    <li>最後把錯誤留下來，明天再練一次。</li>
+  </ol>
 </section>
 
 
@@ -48,21 +132,1005 @@
   <p><b>工具整理與互動設計：</b>林勝堂（KimiLin）<br><b>AI 協作輔助：</b>使用 AI 工具進行內容整理、重構與測試</p>
 </section>
 
-
 <section class="section" id="ai-tools">
   <div class="section-head"><span class="kicker">AI Mapping</span><h2>建議搭配哪一個 AI？</h2></div>
   <p><b>建議優先搭配 Gemini 使用。</b>原學習流程的 AI 篇偏向 Gemini 生態，例如 Gems、Gemini Live、Canvas、Guided Learning、Quiz / Flashcards。</p>
   <p>但這個工具不是只能用 Gemini。ChatGPT、Claude 或其他 AI 也可以用，只要把專有功能換成相近用法。</p>
   <div class="ai-map">
-    <div><b>Gem / Gems</b><br>自訂 AI 英文教練、Custom GPT、Project 或長期對話設定。</div>
-    <div><b>Gemini Live</b><br>語音對話、Voice Mode、一般口說角色扮演。</div>
-    <div><b>Canvas</b><br>寫作編輯區、Canvas、Artifacts 或一般對話改稿。</div>
-    <div><b>Guided Learning</b><br>要求 AI 逐步教你，不要直接給答案。</div>
+    <div><b>Gem / Gems</b><br>可理解成自訂 AI 英文教練、Custom GPT、Project 或長期對話設定。</div>
+    <div><b>Gemini Live</b><br>可理解成語音對話、Voice Mode、一般口說角色扮演。</div>
+    <div><b>Canvas</b><br>可理解成寫作編輯區、Canvas、Artifacts 或一般對話改稿。</div>
+    <div><b>Guided Learning</b><br>可理解成要求 AI 逐步教你，不要直接給答案。</div>
   </div>
 </section>
 
-<div id="loadStatus" class="status">資料載入中。如果你是用 file:// 直接打開，瀏覽器可能阻擋 JSON 載入；請上傳到 GitHub Pages 後使用。</div>
-<div id="chapters"></div>
+
+<section class="section chapter" id="chapter-1">
+  <div class="section-head"><span class="kicker">Chapter 1</span><h2>Chapter 1｜認知篇 / Start Here</h2></div>
+  <h3>1.1 這章解決什麼問題</h3>
+<p>這章不是教你背單字，也不是教你考試技巧。</p>
+<p>它先解決三個根本問題：</p>
+<ol>
+<li>你為什麼要學英文？</li>
+<li>你想把英文用在哪裡？</li>
+<li>你現在的學習方式是否正在消耗你，而不是幫助你？</li>
+</ol>
+<p>很多人學英文失敗，不是因為不努力，而是因為方向錯了。</p>
+<p>他們一直看影片、背單字、下載 App、收藏教材，卻沒有真正使用英文。</p>
+<p>認知篇要讓使用者先明白：</p>
+<blockquote>英文不是一場自虐比賽，而是一種可以進入日常生活的工具。</blockquote>
+<p>---</p>
+<h3>1.2 原項目核心觀念</h3>
+<h4>A. 先搞清楚為什麼要學英文</h4>
+<p>學英文不只是為了考試。</p>
+<p>英文可以帶來：</p>
+<ul>
+<li>更廣的資訊來源</li>
+<li>更快接觸新技術、新工具、新文章</li>
+<li>更少依賴翻譯</li>
+<li>更直接理解原文內容</li>
+<li>更容易和不同背景的人交流</li>
+</ul>
+<p>對網路工作者、工程師、設計師、創作者來說，英文尤其重要，因為很多新工具、新框架、新觀念，最早通常以英文出現。</p>
+<p>但對一般學習者來說，也不需要把理由講得很偉大。</p>
+<p>你只要能說清楚：</p>
+<blockquote>我想用英文做什麼？</blockquote>
+<p>就夠了。</p>
+<p>---</p>
+<h4>B. 被動輸入不夠，必須動起來</h4>
+<p>很多人以為自己在學英文，其實只是：</p>
+<ul>
+<li>看英文影片</li>
+<li>聽 Podcast</li>
+<li>收藏單字</li>
+<li>看教學文章</li>
+<li>買課</li>
+<li>做筆記</li>
+</ul>
+<p>這些都有用，但如果沒有輸出，進步會很慢。</p>
+<p>英文學習需要：</p>
+<ul>
+<li>查詞</li>
+<li>造句</li>
+<li>跟讀</li>
+<li>朗讀</li>
+<li>摘要</li>
+<li>改寫</li>
+<li>開口</li>
+<li>寫短文</li>
+<li>做測驗</li>
+<li>回答問題</li>
+</ul>
+<p>你不需要等自己準備好才輸出。</p>
+<p>你要透過輸出讓自己準備好。</p>
+<p>---</p>
+<h4>C. 不要用透支換努力感</h4>
+<p>很多人會用很痛苦的方式學英文：</p>
+<ul>
+<li>睡很少</li>
+<li>每天排滿</li>
+<li>一次訂太多計畫</li>
+<li>每天逼自己很久</li>
+<li>做不到就內疚</li>
+</ul>
+<p>這種方式看起來很努力，但常常無法持久。</p>
+<p>真正有效的學習不是拼命擠時間，而是提高有效時間。</p>
+<p>比較好的做法是：</p>
+<ul>
+<li>每天固定一個小任務</li>
+<li>不熬夜換學習時間</li>
+<li>不用別人的節奏折磨自己</li>
+<li>每週回顧一次</li>
+<li>讓英文進入日常生活</li>
+</ul>
+<p>---</p>
+<h4>D. 不盲目和不同段位的人比較</h4>
+<p>你不需要模仿學霸、語言天才或高強度考試型選手。</p>
+<p>你需要的是：</p>
+<ul>
+<li>適合自己目前程度的目標</li>
+<li>適合自己生活節奏的任務</li>
+<li>一個不會讓你崩潰的學習方法</li>
+</ul>
+<p>如果目標太大，計畫太滿，失敗後只會更焦慮。</p>
+<p>---</p>
+<h4>E. 情緒不是敵人</h4>
+<p>有時候你不是懶，而是：</p>
+<ul>
+<li>太累</li>
+<li>太難</li>
+<li>太無聊</li>
+<li>太焦慮</li>
+<li>太害怕失敗</li>
+<li>不知道從哪裡開始</li>
+</ul>
+<p>這時候不要先罵自己。</p>
+<p>先問：</p>
+<ol>
+<li>我是不是累了？</li>
+<li>這個材料是不是太難？</li>
+<li>我是不是沒有明確任務？</li>
+<li>我是不是只是在收藏，沒有使用？</li>
+</ol>
+<p>英文學習需要穩定情緒，而不是每天用罪惡感推自己。</p>
+<p>---</p>
+<h4>F. 創造安全的英文環境</h4>
+<p>嬰兒學語言時，不會先學完文法才開始說話。</p>
+<p>他們會先用破碎的詞表達意思，父母通常也不會嘲笑他們，而是溫柔回應。</p>
+<p>英文學習者也需要這樣的環境。</p>
+<p>安全環境可以是：</p>
+<ul>
+<li>AI 英文教練</li>
+<li>朋友練習</li>
+<li>錄音自評</li>
+<li>自言自語</li>
+<li>固定口說題庫</li>
+<li>不公開的日記</li>
+<li>每天一句英文輸出</li>
+</ul>
+<p>重點不是一開始就說得漂亮，而是先敢說。</p>
+<p>---</p>
+<h3>1.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>不知道為什麼學英文</td><td>很容易中斷</td></tr>
+<tr><td>只看影片、只收藏教材</td><td>有學習感，但不會用</td></tr>
+<tr><td>一開始排太滿</td><td>幾天後放棄</td></tr>
+<tr><td>和高手比較</td><td>自信被打爆</td></tr>
+<tr><td>靠內疚推動</td><td>情緒耗損</td></tr>
+<tr><td>等準備好才開口</td><td>永遠不開始</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>1.4 正確做法</h3>
+<ol>
+<li>先寫下英文使用場景。</li>
+<li>每天做一個小輸出。</li>
+<li>不追求完美，只追求今天有用到英文。</li>
+<li>每週檢查自己是否真的輸出。</li>
+<li>用 AI 建立安全練習環境。</li>
+</ol>
+<p>---</p>
+<h3>1.5 今日練習</h3>
+<p>請完成這三題：</p>
+<ol>
+<li>如果不考試、不排名，我學英文最想得到什麼？</li>
+<li>我最想用英文處理哪一種場景？</li>
+<li>今天我可以完成哪一個 10 分鐘英文輸出？</li>
+</ol>
+<p>---</p>
+<h3>1.6 對應 Prompt 卡</h3>
+<ul>
+<li>C01｜學習目標診斷</li>
+<li>C02｜英文使用場景定位</li>
+<li>C03｜假努力檢查</li>
+<li>C04｜用力過猛檢查</li>
+<li>C05｜情緒阻塞修正</li>
+<li>C06｜輸出驅動計畫</li>
+<li>C07｜安全口說環境建立</li>
+</ul>
+<p>---</p>
+</section>
+
+<section class="section chapter" id="chapter-2">
+  <div class="section-head"><span class="kicker">Chapter 2</span><h2>Chapter 2｜單詞篇 / Vocabulary System</h2></div>
+  <h3>2.1 這章解決什麼問題</h3>
+<p>很多人背單字背了很多年，卻仍然：</p>
+<ul>
+<li>看文章常卡住</li>
+<li>聽力聽不出來</li>
+<li>口說想不到詞</li>
+<li>寫作只會用簡單字</li>
+<li>背了又忘</li>
+</ul>
+<p>問題通常不是「不夠努力」，而是把單字當成中文翻譯表。</p>
+<p>單詞篇要建立一個觀念：</p>
+<blockquote>單字不是一個中文意思，而是一組聲音、語境、搭配、例句、輸出與複習。</blockquote>
+<p>---</p>
+<h3>2.2 原項目核心觀念</h3>
+<h4>A. 單字是語言的地基</h4>
+<p>沒有一定詞彙量，就很難順利進入聽力、閱讀、口語與寫作。</p>
+<p>但背單字不是無限背下去。</p>
+<p>詞彙量有一個「從量變到質變」的階段。</p>
+<p>當你累積到一定量，語境會開始幫你猜意思，閱讀與聽力都會變輕鬆。</p>
+<p>---</p>
+<h4>B. 背單字的回報率會遞減</h4>
+<p>一開始學最常見的單字，收益很高。</p>
+<p>但越往後，新增單字的出現頻率越低，回報會下降。</p>
+<p>所以一般學習者不應只追求「單字量數字」。</p>
+<p>更重要的是：</p>
+<ul>
+<li>常見字要熟</li>
+<li>常見搭配要會</li>
+<li>常見語境要懂</li>
+<li>常用表達要能輸出</li>
+</ul>
+<p>---</p>
+<h4>C. 不要跳過基礎</h4>
+<p>有些人想直接看原文書、看影集、聽 Podcast，但基礎單字不足時，會很快挫折。</p>
+<p>循序漸進不是保守，而是讓你能持續。</p>
+<p>---</p>
+<h4>D. 單字要放回語境</h4>
+<p>不要只背：</p>
+<blockquote>apple = 蘋果</blockquote>
+<p>而是要知道：</p>
+<ul>
+<li>怎麼念</li>
+<li>常在哪裡出現</li>
+<li>和哪些詞搭配</li>
+<li>例句怎麼寫</li>
+<li>自己能不能造句</li>
+<li>聽到時認不認得</li>
+<li>讀文章時能不能理解</li>
+</ul>
+<p>---</p>
+<h4>E. 可以讓 AI 幫你挑詞</h4>
+<p>如果使用者沒有自己的單字表，不需要卡住。</p>
+<p>可以請 AI 根據：</p>
+<ul>
+<li>你的程度</li>
+<li>你的目標</li>
+<li>你的主題</li>
+<li>你今天想練的技能</li>
+</ul>
+<p>先挑 10 個詞，再做語境、例句、測驗與 Flashcards。</p>
+<p>---</p>
+<h3>2.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>只背中文意思</td><td>看得懂但用不出</td></tr>
+<tr><td>不聽發音</td><td>聽力與口說都受影響</td></tr>
+<tr><td>一次背太多</td><td>很快忘光</td></tr>
+<tr><td>不學搭配詞</td><td>寫作和口說不自然</td></tr>
+<tr><td>沒有複習節奏</td><td>背了又忘</td></tr>
+<tr><td>沒有輸出</td><td>只會認，不會用</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>2.4 正確做法</h3>
+<p>每個新單字至少建立六個資訊：</p>
+<ol>
+<li>發音</li>
+<li>核心意思</li>
+<li>繁中補充</li>
+<li>自然英文例句</li>
+<li>常見搭配</li>
+<li>自己造句</li>
+</ol>
+<p>進階可加入：</p>
+<ul>
+<li>近義詞比較</li>
+<li>反義詞</li>
+<li>常見錯誤用法</li>
+<li>Anki / Flashcards</li>
+<li>小測驗</li>
+</ul>
+<p>---</p>
+<h3>2.5 操作流程</h3>
+<h4>有自己的單字時</h4>
+<ol>
+<li>貼上單字</li>
+<li>讓 AI 逐詞解釋</li>
+<li>讓 AI 給例句與搭配</li>
+<li>自己造句</li>
+<li>讓 AI 批改</li>
+<li>做成 Flashcards</li>
+</ol>
+<h4>沒有單字時</h4>
+<ol>
+<li>告訴 AI 你的程度</li>
+<li>告訴 AI 你的目標</li>
+<li>告訴 AI 今天主題</li>
+<li>讓 AI 挑 10 個詞</li>
+<li>做語境、例句、測驗</li>
+<li>隔天複習</li>
+</ol>
+<p>---</p>
+<h3>2.6 今日練習</h3>
+<p>請用 C08 完成：</p>
+<ul>
+<li>選 A：我已有單字</li>
+<li>或選 B：請 AI 幫我挑今天要練的 10 個詞</li>
+</ul>
+<p>完成後，用其中 3 個詞各造一句英文。</p>
+<p>---</p>
+<h3>2.7 對應 Prompt 卡</h3>
+<ul>
+<li>C08｜單字語境學習</li>
+<li>C09｜發音與音標檢查</li>
+<li>C10｜視覺 / 聽覺學習偏好診斷</li>
+<li>C11｜搭配詞訓練</li>
+<li>C12｜近義詞比較</li>
+<li>C13｜艾賓浩斯複習排程</li>
+<li>C14｜Anki 卡片生成</li>
+<li>C15｜雲單字本整理</li>
+<li>C16｜總是記不住單字診斷</li>
+<li>C53｜測驗 / Flashcards 生成器</li>
+</ul>
+<p>---</p>
+</section>
+
+<section class="section chapter" id="chapter-3">
+  <div class="section-head"><span class="kicker">Chapter 3</span><h2>Chapter 3｜聽力篇 / Listening Lab</h2></div>
+  <h3>3.1 這章解決什麼問題</h3>
+<p>很多人聽英文很多年，仍然聽不懂。</p>
+<p>原因通常不是「聽得不夠久」，而是沒有診斷問題。</p>
+<p>聽不懂可能有很多原因：</p>
+<ul>
+<li>這個字你根本不認識</li>
+<li>字認識，但聲音認不出</li>
+<li>連音、弱讀、縮讀聽不出</li>
+<li>句子太長</li>
+<li>語速太快</li>
+<li>材料太難</li>
+<li>太依賴字幕</li>
+<li>沒有固定材料</li>
+</ul>
+<p>聽力篇的核心是：</p>
+<blockquote>不要只是播放英文，要知道自己為什麼聽不懂。</blockquote>
+<p>---</p>
+<h3>3.2 原項目核心觀念</h3>
+<h4>A. 學習材料不要太分散</h4>
+<p>很多人同時訂閱：</p>
+<ul>
+<li>VOA</li>
+<li>BBC</li>
+<li>Podcast</li>
+<li>YouTube</li>
+<li>美劇</li>
+<li>名人演講</li>
+<li>英文朗讀</li>
+</ul>
+<p>材料很多，但每天換來換去，沒有累積。</p>
+<p>更好的做法是：</p>
+<ul>
+<li>先選 1–2 個主材料</li>
+<li>固定練一段時間</li>
+<li>對同一材料做精聽、跟讀、測驗</li>
+<li>不要天天換</li>
+</ul>
+<p>---</p>
+<h4>B. 材料不要超綱</h4>
+<p>材料太難，聽 10 遍也可能沒有用。</p>
+<p>如果生詞太多，語速太快，句子太長，你會很快失去興趣。</p>
+<p>正確做法是：</p>
+<ul>
+<li>選略高於目前程度的材料</li>
+<li>先處理關鍵生詞</li>
+<li>再回來聽</li>
+<li>必要時降速</li>
+<li>不把英美劇當初學者主教材</li>
+</ul>
+<p>---</p>
+<h4>C. 不要過度依賴字幕</h4>
+<p>字幕可以用，但不能一直用。</p>
+<p>建議分階段：</p>
+<ol>
+<li>先聽不看字幕</li>
+<li>看英文字幕確認</li>
+<li>查關鍵生詞</li>
+<li>再聽一次</li>
+<li>最後嘗試無字幕聽懂大意</li>
+</ol>
+<p>中文字幕會讓你以為自己懂了，但其實可能是中文在幫你理解。</p>
+<p>---</p>
+<h4>D. 精聽與泛聽不同</h4>
+<p>精聽：</p>
+<ul>
+<li>用短材料</li>
+<li>反覆聽</li>
+<li>拆句</li>
+<li>查詞</li>
+<li>跟讀</li>
+<li>找錯誤</li>
+</ul>
+<p>泛聽：</p>
+<ul>
+<li>用較長材料</li>
+<li>抓大意</li>
+<li>不查每個字</li>
+<li>建立熟悉感</li>
+<li>培養語感</li>
+</ul>
+<p>兩者都需要，但目的不同。</p>
+<p>---</p>
+<h3>3.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>訂閱太多材料</td><td>沒有穩定累積</td></tr>
+<tr><td>材料太難</td><td>很快放棄</td></tr>
+<tr><td>一直看中文字幕</td><td>離開字幕就崩</td></tr>
+<tr><td>只背景播放</td><td>幾乎沒有主動處理</td></tr>
+<tr><td>不做錯題本</td><td>問題一直重複</td></tr>
+<tr><td>聽不懂只重播</td><td>沒有拆原因</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>3.4 正確做法</h3>
+<h4>精聽流程</h4>
+<ol>
+<li>先聽一次抓大意</li>
+<li>第二次記下聽不懂的地方</li>
+<li>看英文字幕或逐字稿</li>
+<li>查關鍵詞</li>
+<li>拆長句</li>
+<li>跟讀</li>
+<li>再無字幕聽一次</li>
+</ol>
+<h4>泛聽流程</h4>
+<ol>
+<li>選自己感興趣的材料</li>
+<li>不查每個字</li>
+<li>抓主題、情緒、關鍵資訊</li>
+<li>每天固定 10–20 分鐘</li>
+<li>一週後回顧聽力變化</li>
+</ol>
+<p>---</p>
+<h3>3.5 今日練習</h3>
+<p>請選一段 1–3 分鐘英文材料。</p>
+<p>完成：</p>
+<ol>
+<li>不看字幕聽一次</li>
+<li>寫下你聽到的 5 個關鍵詞</li>
+<li>看字幕確認</li>
+<li>用 C18 拆句</li>
+<li>用 C24 建立聽力錯題本</li>
+</ol>
+<p>---</p>
+<h3>3.6 對應 Prompt 卡</h3>
+<ul>
+<li>C17｜聽力材料選擇器</li>
+<li>C18｜精聽拆句</li>
+<li>C19｜泛聽 14 天計畫</li>
+<li>C20｜字幕依賴戒斷</li>
+<li>C21｜非慢速英語診斷</li>
+<li>C22｜歌詞聽力練習</li>
+<li>C23｜Podcast / YouTube 轉 Quiz</li>
+<li>C24｜聽力錯題本</li>
+</ul>
+<p>---</p>
+</section>
+
+<section class="section chapter" id="chapter-4">
+  <div class="section-head"><span class="kicker">Chapter 4</span><h2>Chapter 4｜閱讀篇 / Reading Workshop</h2></div>
+  <h3>4.1 這章解決什麼問題</h3>
+<p>很多人讀英文時會犯兩個極端錯誤：</p>
+<ol>
+<li>每個字都查，讀得很慢</li>
+<li>完全不查，讀完只知道大概</li>
+</ol>
+<p>閱讀篇要建立一個觀念：</p>
+<blockquote>不同材料要用不同讀法。</blockquote>
+<p>有些文章適合精讀，有些材料適合泛讀，有些技術文檔要先解生詞，有些社群文章只要抓觀點。</p>
+<p>---</p>
+<h3>4.2 原項目核心觀念</h3>
+<h4>A. 精讀</h4>
+<p>短小、密度高、有觀點、有語言美感的文章適合精讀。</p>
+<p>精讀時要看：</p>
+<ul>
+<li>文章結構</li>
+<li>段落功能</li>
+<li>作者觀點</li>
+<li>關鍵句</li>
+<li>隱含意思</li>
+<li>高價值表達</li>
+</ul>
+<p>精讀不是只查單字，而是拆文章。</p>
+<p>---</p>
+<h4>B. 泛讀</h4>
+<p>小說、故事、長篇材料適合泛讀。</p>
+<p>泛讀不需要每個字都查。</p>
+<p>重點是：</p>
+<ul>
+<li>享受閱讀</li>
+<li>保持節奏</li>
+<li>建立語感</li>
+<li>長期累積</li>
+</ul>
+<p>一開始不要挑太難的原文書。</p>
+<p>太多生詞會破壞閱讀體驗。</p>
+<p>---</p>
+<h4>C. 技術文檔閱讀</h4>
+<p>技術文檔不一定要逐字看。</p>
+<p>更好的方法：</p>
+<ol>
+<li>先看標題與目錄</li>
+<li>找出關鍵概念</li>
+<li>處理高頻生詞</li>
+<li>看範例</li>
+<li>用英文摘要</li>
+<li>讓 AI 幫你出題</li>
+</ol>
+<p>---</p>
+<h4>D. 社群閱讀</h4>
+<p>Medium、Quora、Reddit、Hacker News、Stack Overflow 這類材料，適合練：</p>
+<ul>
+<li>真實語氣</li>
+<li>問答表達</li>
+<li>技術討論</li>
+<li>觀點摘要</li>
+<li>自然英文句型</li>
+</ul>
+<p>但不要一開始就深陷留言區。</p>
+<p>要帶著任務讀。</p>
+<p>---</p>
+<h3>4.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>每個字都查</td><td>閱讀節奏中斷</td></tr>
+<tr><td>選太難原文書</td><td>很快放棄</td></tr>
+<tr><td>只看中文翻譯</td><td>沒吸收英文表達</td></tr>
+<tr><td>收藏文章不輸出</td><td>沒有真正消化</td></tr>
+<tr><td>技術文檔硬讀</td><td>後面全崩</td></tr>
+<tr><td>不分精讀與泛讀</td><td>方法錯配</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>4.4 正確做法</h3>
+<h4>精讀流程</h4>
+<ol>
+<li>先讀標題與首段</li>
+<li>猜文章主旨</li>
+<li>標出關鍵句</li>
+<li>查影響理解的字</li>
+<li>用自己的話摘要</li>
+<li>抽出 3 個可用表達</li>
+</ol>
+<h4>泛讀流程</h4>
+<ol>
+<li>選不太痛苦的材料</li>
+<li>不查每個字</li>
+<li>持續閱讀</li>
+<li>記下反覆出現的詞</li>
+<li>讀完做短摘要</li>
+</ol>
+<h4>技術文檔流程</h4>
+<ol>
+<li>先看文件目錄</li>
+<li>找出核心名詞</li>
+<li>看範例</li>
+<li>摘要功能與限制</li>
+<li>用 AI 出 5 題測驗</li>
+</ol>
+<p>---</p>
+<h3>4.5 今日練習</h3>
+<p>選一篇短文章或技術文檔。</p>
+<p>完成：</p>
+<ol>
+<li>用 C25 做精讀拆解</li>
+<li>用 C28 處理生字</li>
+<li>用 C31 寫英文摘要</li>
+<li>用 C32 抽取可用表達</li>
+</ol>
+<p>---</p>
+<h3>4.6 對應 Prompt 卡</h3>
+<ul>
+<li>C25｜精讀文章拆解</li>
+<li>C26｜泛讀書籍選擇器</li>
+<li>C27｜英文技術文檔閱讀</li>
+<li>C28｜生字處理策略</li>
+<li>C29｜段落功能標註</li>
+<li>C30｜原文書難度判斷</li>
+<li>C31｜閱讀後英文摘要</li>
+<li>C32｜文章表達抽取</li>
+</ul>
+<p>---</p>
+</section>
+
+<section class="section chapter" id="chapter-5">
+  <div class="section-head"><span class="kicker">Chapter 5</span><h2>Chapter 5｜口語篇 / Speaking Room</h2></div>
+  <h3>5.1 這章解決什麼問題</h3>
+<p>很多人學英文多年，但開口仍然卡住。</p>
+<p>常見原因：</p>
+<ul>
+<li>怕發音錯</li>
+<li>怕文法錯</li>
+<li>先想中文再翻英文</li>
+<li>句子想太長</li>
+<li>沒有安全練習環境</li>
+<li>沒有固定場景</li>
+<li>只練輸入，沒有輸出</li>
+</ul>
+<p>口語篇要建立一個觀念：</p>
+<blockquote>口說不是等英文完美才開始，而是在不完美中建立反射。</blockquote>
+<p>---</p>
+<h3>5.2 原項目核心觀念</h3>
+<h4>A. 發音與音標是基礎</h4>
+<p>如果不知道單字怎麼念，就很難聽懂，也很難說出口。</p>
+<p>音標不需要學得很學術，但至少要：</p>
+<ul>
+<li>知道常見母音</li>
+<li>知道常見子音</li>
+<li>能查單字發音</li>
+<li>能大聲跟讀</li>
+<li>能錄音比對</li>
+</ul>
+<p>---</p>
+<h4>B. 大聲說英文</h4>
+<p>很多人只在心裡練英文。</p>
+<p>但口說需要嘴巴、舌頭、呼吸、節奏一起參與。</p>
+<p>所以一定要大聲說。</p>
+<p>可以做：</p>
+<ul>
+<li>朗讀短文</li>
+<li>跟讀影片</li>
+<li>讀自己的句子</li>
+<li>重複同一題</li>
+<li>錄音自評</li>
+</ul>
+<p>---</p>
+<h4>C. 交流與場景</h4>
+<p>口說不是隨便聊天，而是場景訓練。</p>
+<p>例如：</p>
+<ul>
+<li>自我介紹</li>
+<li>點餐</li>
+<li>問路</li>
+<li>會議發言</li>
+<li>工作回報</li>
+<li>面試</li>
+<li>旅遊</li>
+<li>解釋一個問題</li>
+</ul>
+<p>每次只練一個場景，會比亂聊有效。</p>
+<p>---</p>
+<h4>D. 英文歌也可以練口說</h4>
+<p>英文歌適合練：</p>
+<ul>
+<li>節奏</li>
+<li>連音</li>
+<li>弱讀</li>
+<li>發音肌肉</li>
+<li>語感</li>
+</ul>
+<p>但要知道，唱歌不是正式口說訓練的全部。</p>
+<p>它是輔助工具。</p>
+<p>---</p>
+<h4>E. 準備常見問題</h4>
+<p>你可以先準備一批常見問題：</p>
+<ul>
+<li>Tell me about yourself.</li>
+<li>What do you do?</li>
+<li>What are you learning now?</li>
+<li>Why do you want to improve English?</li>
+<li>What do you like to do?</li>
+<li>Can you explain your work?</li>
+</ul>
+<p>這些題目反覆練，會建立口說安全感。</p>
+<p>---</p>
+<h3>5.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>只在心裡練</td><td>開口仍然卡</td></tr>
+<tr><td>先想中文再翻</td><td>語速很慢</td></tr>
+<tr><td>一開始句子太長</td><td>壓力太大</td></tr>
+<tr><td>怕錯不說</td><td>沒有反饋</td></tr>
+<tr><td>只練發音不練場景</td><td>真實對話仍卡</td></tr>
+<tr><td>不錄音</td><td>不知道自己問題在哪</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>5.4 正確做法</h3>
+<ol>
+<li>每天大聲說 3–5 分鐘。</li>
+<li>每次只練一個場景。</li>
+<li>先用短句完成意思。</li>
+<li>用 AI 扮演對話對象。</li>
+<li>錄音後請 AI 幫你整理問題。</li>
+<li>同一題隔天再說一次。</li>
+</ol>
+<p>---</p>
+<h3>5.5 今日練習</h3>
+<p>請選一題：</p>
+<ol>
+<li>自我介紹</li>
+<li>今天做了什麼</li>
+<li>最近在學什麼</li>
+<li>解釋你的工作</li>
+<li>推薦一部影片或一本書</li>
+</ol>
+<p>用 C36 或 C38 讓 AI 和你練 5 輪。</p>
+<p>---</p>
+<h3>5.6 對應 Prompt 卡</h3>
+<ul>
+<li>C33｜發音 / 音標入門</li>
+<li>C34｜大聲朗讀跟讀</li>
+<li>C35｜中翻英卡關診斷</li>
+<li>C36｜日常口說角色扮演</li>
+<li>C37｜職場口說角色扮演</li>
+<li>C38｜常見問題口說訓練</li>
+<li>C39｜英文歌跟唱訓練</li>
+<li>C40｜陌生人交流暖身</li>
+</ul>
+<p>---</p>
+</section>
+
+<section class="section chapter" id="chapter-6">
+  <div class="section-head"><span class="kicker">Chapter 6</span><h2>Chapter 6｜寫作篇 / Writing Studio</h2></div>
+  <h3>6.1 這章解決什麼問題</h3>
+<p>很多人用 AI 寫英文時，會直接把中文丟給 AI，讓 AI 生成英文。</p>
+<p>這樣可以得到答案，但很難提升自己的寫作能力。</p>
+<p>寫作篇要建立一個核心流程：</p>
+<blockquote>自己先寫 → AI 找問題 → 自己修改 → 再看 AI 高階版本 → 整理錯誤。</blockquote>
+<p>---</p>
+<h3>6.2 原項目核心觀念</h3>
+<h4>A. 寫作不是翻譯</h4>
+<p>英文寫作不是把中文逐句翻成英文。</p>
+<p>更好的寫作要考慮：</p>
+<ul>
+<li>目的</li>
+<li>讀者</li>
+<li>語氣</li>
+<li>結構</li>
+<li>清楚度</li>
+<li>自然度</li>
+<li>真誠度</li>
+</ul>
+<p>---</p>
+<h4>B. 閱讀會影響寫作</h4>
+<p>你讀過什麼，就會影響你怎麼寫。</p>
+<p>如果只讀課本句子，寫作就會像課本。</p>
+<p>如果常讀自然英文文章、郵件、評論、技術文檔，你會慢慢吸收更自然的表達。</p>
+<p>---</p>
+<h4>C. AI 應該當批改教練，不是代筆工具</h4>
+<p>AI 可以幫你：</p>
+<ul>
+<li>找錯誤</li>
+<li>改語氣</li>
+<li>重組句子</li>
+<li>提供更自然版本</li>
+<li>解釋為什麼</li>
+<li>出練習題</li>
+<li>建立錯誤清單</li>
+</ul>
+<p>但你仍要先寫第一版。</p>
+<p>---</p>
+<h4>D. 改稿後要自己重寫</h4>
+<p>很多人看完 AI 改稿就結束。</p>
+<p>這樣能力不會進步。</p>
+<p>正確做法：</p>
+<ol>
+<li>自己寫第一版</li>
+<li>AI 指出問題</li>
+<li>自己改第二版</li>
+<li>再看 AI 範例</li>
+<li>自己重寫第三版</li>
+<li>整理下次檢查表</li>
+</ol>
+<p>---</p>
+<h4>E. 標題要誠實</h4>
+<p>不管是文章、貼文、Email subject，標題都不應誇張或誤導。</p>
+<p>好標題應該：</p>
+<ul>
+<li>清楚</li>
+<li>具體</li>
+<li>符合內容</li>
+<li>不過度承諾</li>
+<li>不騙點擊</li>
+</ul>
+<p>---</p>
+<h3>6.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>直接讓 AI 代寫</td><td>自己能力不會長</td></tr>
+<tr><td>不寫第一版</td><td>看不出自己的問題</td></tr>
+<tr><td>只看 AI 改稿</td><td>下次照樣錯</td></tr>
+<tr><td>不分類錯誤</td><td>無法系統改善</td></tr>
+<tr><td>追求高級詞</td><td>句子不自然</td></tr>
+<tr><td>標題誇張</td><td>失去信任</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>6.4 正確做法</h3>
+<ol>
+<li>先自己寫。</li>
+<li>讓 AI 只找最重要的 3–5 個問題。</li>
+<li>先自己修改。</li>
+<li>再看 AI 的自然版本。</li>
+<li>對照差異。</li>
+<li>建立錯誤清單。</li>
+<li>下次寫作前先看檢查表。</li>
+</ol>
+<p>---</p>
+<h3>6.5 今日練習</h3>
+<p>請寫一段 80–120 字英文，主題任選：</p>
+<ul>
+<li>今天的學習</li>
+<li>工作近況</li>
+<li>一封簡短 Email</li>
+<li>一段自我介紹</li>
+<li>一篇短心得</li>
+</ul>
+<p>然後用 C41 / C42 / C60 批改。</p>
+<p>---</p>
+<h3>6.6 對應 Prompt 卡</h3>
+<ul>
+<li>C41｜作文逐句批改</li>
+<li>C42｜自然英文改寫</li>
+<li>C43｜商務郵件潤飾</li>
+<li>C44｜寫作回饋吸收</li>
+<li>C45｜AI 改稿後自我重寫</li>
+<li>C46｜標題誠實檢查</li>
+<li>C47｜讀寫連動仿寫</li>
+<li>C48｜作品交流回饋模板</li>
+<li>C60｜文法診斷與修正卡</li>
+</ul>
+<p>---</p>
+</section>
+
+<section class="section chapter" id="chapter-7">
+  <div class="section-head"><span class="kicker">Chapter 7</span><h2>Chapter 7｜AI 篇 / AI English Coach</h2></div>
+  <h3>7.1 這章解決什麼問題</h3>
+<p>AI 可以讓英文學習效率大幅提升，但前提是用法正確。</p>
+<p>錯誤用法：</p>
+<ul>
+<li>叫 AI 翻譯</li>
+<li>叫 AI 代寫</li>
+<li>叫 AI 直接給答案</li>
+<li>問一句很空泛的問題</li>
+<li>看完答案就結束</li>
+</ul>
+<p>正確用法：</p>
+<blockquote>把 AI 當成英文訓練環境，而不是答案機。</blockquote>
+<p>---</p>
+<h3>7.2 原項目核心觀念</h3>
+<h4>A. Gemini 是主路線</h4>
+<p>原項目新版 AI 篇偏向 Gemini 生態。</p>
+<p>原因是 Gemini 有多個學習相關入口，例如：</p>
+<ul>
+<li>Gems</li>
+<li>Gemini Live</li>
+<li>Canvas</li>
+<li>Guided Learning</li>
+<li>Quiz / Flashcards</li>
+</ul>
+<p>因此本工具建議優先搭配 Gemini 使用。</p>
+<p>---</p>
+<h4>B. 但不是只能用 Gemini</h4>
+<p>如果使用 ChatGPT、Claude 或其他 AI，也可以用。</p>
+<p>對應方式：</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Gemini 名稱</th><th>其他 AI 對應</th></tr></thead><tbody>
+<tr><td>Gem / Gems</td><td>自訂 AI 教練、Custom GPT、Project</td></tr>
+<tr><td>Gemini Live</td><td>Voice Mode、語音對話、口說角色扮演</td></tr>
+<tr><td>Canvas</td><td>Canvas、Artifacts、一般對話改稿</td></tr>
+<tr><td>Guided Learning</td><td>逐步教學，不直接給答案</td></tr>
+<tr><td>Quiz / Flashcards</td><td>任何 AI 都可用 Prompt 生成</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h4>C. AI 應該追問你，而不是直接給答案</h4>
+<p>好的 AI 英文教練應該會：</p>
+<ul>
+<li>問你的程度</li>
+<li>問你的目標</li>
+<li>問你今天材料</li>
+<li>先讓你回答</li>
+<li>再批改</li>
+<li>再給更自然版本</li>
+<li>最後整理錯誤與複習</li>
+</ul>
+<p>如果 AI 直接把答案全部給你，你要要求它改成教練模式。</p>
+<p>---</p>
+<h4>D. 建立固定英文教練</h4>
+<p>你可以建立一個固定 AI 英文教練設定：</p>
+<ul>
+<li>我的程度</li>
+<li>我的目標</li>
+<li>我常犯錯</li>
+<li>我每天可用時間</li>
+<li>我想練的技能</li>
+<li>回覆語言偏好</li>
+<li>請不要直接給答案</li>
+<li>請要求我輸出</li>
+</ul>
+<p>這樣每次練習更穩定。</p>
+<p>---</p>
+<h4>E. 每次學習要形成閉環</h4>
+<p>AI 練英文的理想流程：</p>
+<ol>
+<li>輸入材料</li>
+<li>AI 幫你理解</li>
+<li>AI 出題</li>
+<li>你回答</li>
+<li>AI 批改</li>
+<li>你重寫 / 重說</li>
+<li>AI 整理錯誤</li>
+<li>明天複習</li>
+</ol>
+<p>---</p>
+<h3>7.3 常見錯誤</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>錯誤</th><th>後果</th></tr></thead><tbody>
+<tr><td>把 AI 當翻譯器</td><td>自己不進步</td></tr>
+<tr><td>讓 AI 直接寫完</td><td>沒有輸出訓練</td></tr>
+<tr><td>問題太空泛</td><td>回答也空泛</td></tr>
+<tr><td>不要求追問</td><td>AI 變成答案機</td></tr>
+<tr><td>不整理錯誤</td><td>一直犯同樣錯</td></tr>
+<tr><td>上傳敏感資料</td><td>有隱私風險</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h3>7.4 正確做法</h3>
+<ol>
+<li>先用 C49 建立 AI 英文教練。</li>
+<li>練口說用 C50。</li>
+<li>練閱讀用 C51。</li>
+<li>練寫作用 C52。</li>
+<li>做測驗用 C53。</li>
+<li>每週用 C58 留痕。</li>
+<li>每週用 C57 生成下週計畫。</li>
+</ol>
+<p>---</p>
+<h3>7.5 今日練習</h3>
+<p>請先完成：</p>
+<ol>
+<li>使用 C49 設定 AI 英文教練</li>
+<li>告訴 AI 你的程度與目標</li>
+<li>要求 AI 先問你 3 個問題</li>
+<li>不要讓 AI 直接給答案</li>
+<li>完成一個輸出任務</li>
+</ol>
+<p>---</p>
+<h3>7.6 對應 Prompt 卡</h3>
+<ul>
+<li>C49｜AI 英文教練設定卡</li>
+<li>C50｜AI 語音口說練習卡</li>
+<li>C51｜逐步引導閱讀卡</li>
+<li>C52｜寫作編輯與批改卡</li>
+<li>C53｜測驗 / Flashcards 生成器</li>
+<li>C54｜材料再利用流程</li>
+<li>C55｜AI 多模型分工選擇器</li>
+<li>C56｜IELTS / 面試 / 會議模擬</li>
+<li>C57｜一週訓練模板生成器</li>
+<li>C58｜AI 反饋留痕表</li>
+<li>C59｜隱私檢查提示</li>
+</ul>
+<p>---</p>
+<h2>8. v0.7.1 對 v0.6.7 的補強點</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>模組</th><th>v0.6.7</th><th>v0.7.1 補強</th></tr></thead><tbody>
+<tr><td>認知篇</td><td>3 分鐘精華</td><td>補動機、情緒、節奏、安全環境</td></tr>
+<tr><td>單詞篇</td><td>基本單字策略</td><td>補詞彙量觀念、語境、已有/AI 生成雙路徑</td></tr>
+<tr><td>聽力篇</td><td>常見錯誤與卡片</td><td>補精聽、泛聽、字幕、材料難度</td></tr>
+<tr><td>閱讀篇</td><td>精讀/泛讀簡述</td><td>補技術文檔、社群閱讀、摘要輸出</td></tr>
+<tr><td>口語篇</td><td>場景與發音</td><td>補大聲說、常見問題、英文歌輔助</td></tr>
+<tr><td>寫作篇</td><td>AI 批改流程</td><td>補自己先寫、AI 改稿後重寫、標題誠實</td></tr>
+<tr><td>AI 篇</td><td>Gemini 主線與對應</td><td>補固定 AI 教練、閉環訓練、追問機制</td></tr>
+</tbody></table></div>
+<p>---</p>
+<h2>9. 尚未完成的內容</h2>
+<p>v0.7.1 尚未處理：</p>
+<ol>
+<li>Resource Navigator 全量擴充</li>
+<li>原項目所有資源清單完整導入</li>
+<li>Week 1 轉 7 天模式</li>
+<li>我的故事 / 扯淡篇選修整理</li>
+<li>圖片 assets 是否保留</li>
+<li>v0.7.4 HTML 實作</li>
+<li>手機完整 QA</li>
+</ol>
+<p>這些應交給 v0.7.2 之後處理。</p>
+<p>---</p>
+<h2>10. Gate 判定</h2>
+<p>v0.7.1 判定：</p>
+<blockquote>PASS：七大主章內容可進入 v0.7.4 HTML 擴充前的內容池。</blockquote>
+<p>但建議不要立刻做 HTML。</p>
+<p>下一步應先做：</p>
+<blockquote>v0.7.2 Resource Navigator Expansion</blockquote>
+<p>原因：</p>
+<ul>
+<li>原項目大量價值在資源清單</li>
+<li>聽力篇、閱讀篇都依賴資源導航</li>
+<li>若不先補資源，HTML 仍會像「方法有了，但材料不足」</li>
+</ul>
+<p>---</p>
+<h2>11. 下一步</h2>
+<p>建議下一份文件：</p>
+<pre><code>English_Level_Up_v0_7_2_Resource_Navigator_Expansion.md</code></pre>
+<p>目標：</p>
+<ul>
+<li>擴充聽力資源</li>
+<li>擴充閱讀資源</li>
+<li>擴充 AI 工具資源</li>
+<li>建立資源資料結構</li>
+<li>定義前台篩選方式</li>
+</ul>
+</section>
+
+
 
 <section class="section" id="today">
   <div class="section-head"><span class="kicker">Today Minimum Mode</span><h2>今天不知道練什麼？照這 15 分鐘做</h2></div>
@@ -86,13 +1154,274 @@
     <button class="filter-btn" data-filter="vocabulary">單字 / Flashcards</button>
     <button class="filter-btn" data-filter="ai">AI 工具</button>
   </div>
-  <div class="resource-grid" id="resourceGrid"></div>
+  <div class="resource-grid" id="resourceGrid">
+    
+<article class="resource-card" data-type="listening" data-priority="main">
+  <div class="card-top"><span class="rid">L01</span><span class="level">A1-A2</span></div>
+  <h3>Basic English Grammar 類基礎英文影片</h3>
+  <div class="tags"><span class="tag">初學者</span><span class="tag">聽力入門</span><span class="tag">基礎句型</span><span class="tag">基礎語法</span></div>
+  <p><b>第一次怎麼用：</b>先選 3-8 分鐘短影片。不看字幕聽一次，再看英文字幕確認，最後用 C18 拆句。</p>
+  <p><b>搭配卡片：</b><a href="#card-C17" class="pill">C17</a><a href="#card-C18" class="pill">C18</a><a href="#card-C20" class="pill">C20</a><a href="#card-C23" class="pill">C23</a></p>
+  <p class="warn"><b>注意：</b>不要一開始就挑太長、太快、太多生字的影片。</p>
+</article>
+
+<article class="resource-card" data-type="listening" data-priority="main">
+  <div class="card-top"><span class="rid">L02</span><span class="level">B1-B2</span></div>
+  <h3>New Concept English 3 / 4</h3>
+  <div class="tags"><span class="tag">精聽</span><span class="tag">聽寫</span><span class="tag">跟讀</span><span class="tag">句型吸收</span></div>
+  <p><b>第一次怎麼用：</b>每次只選一小段，反覆聽到能抓大意，再看文本，最後做聽寫與跟讀。</p>
+  <p><b>搭配卡片：</b><a href="#card-C18" class="pill">C18</a><a href="#card-C24" class="pill">C24</a><a href="#card-C34" class="pill">C34</a></p>
+  <p class="warn"><b>注意：</b>不適合只當背景播放。這類材料的價值在精聽與跟讀。</p>
+</article>
+
+<article class="resource-card" data-type="listening" data-priority="main">
+  <div class="card-top"><span class="rid">L03</span><span class="level">A2-C1</span></div>
+  <h3>Podcast</h3>
+  <div class="tags"><span class="tag">泛聽</span><span class="tag">主題聽力</span><span class="tag">通勤學習</span><span class="tag">自然語速</span></div>
+  <p><b>第一次怎麼用：</b>選自己感興趣的主題。第一次抓大意，不查每個字；第二次挑 3-5 分鐘片段做精聽。</p>
+  <p><b>搭配卡片：</b><a href="#card-C17" class="pill">C17</a><a href="#card-C19" class="pill">C19</a><a href="#card-C23" class="pill">C23</a><a href="#card-C24" class="pill">C24</a></p>
+  <p class="warn"><b>注意：</b>不要訂閱太多。先固定 1-2 個頻道。</p>
+</article>
+
+<article class="resource-card" data-type="listening" data-priority="optional">
+  <div class="card-top"><span class="rid">L04</span><span class="level">B1-C1</span></div>
+  <h3>Audiobooks / 有聲書</h3>
+  <div class="tags"><span class="tag">泛聽</span><span class="tag">長時間語感</span><span class="tag">原文書搭配</span></div>
+  <p><b>第一次怎麼用：</b>選已讀過中文或熟悉情節的作品。先泛聽章節，再挑喜歡段落做精聽。</p>
+  <p><b>搭配卡片：</b><a href="#card-C19" class="pill">C19</a><a href="#card-C26" class="pill">C26</a><a href="#card-C31" class="pill">C31</a></p>
+  <p class="warn"><b>注意：</b>生詞太多時不要硬聽，先降難度。</p>
+</article>
+
+<article class="resource-card" data-type="listening" data-priority="optional">
+  <div class="card-top"><span class="rid">L05</span><span class="level">B1-C1</span></div>
+  <h3>英美劇</h3>
+  <div class="tags"><span class="tag">自然口語</span><span class="tag">日常表達</span><span class="tag">文化語境</span><span class="tag">泛聽</span></div>
+  <p><b>第一次怎麼用：</b>第一次可看字幕理解劇情；二刷短片段時關字幕，挑 1-2 分鐘做跟讀。</p>
+  <p><b>搭配卡片：</b><a href="#card-C20" class="pill">C20</a><a href="#card-C21" class="pill">C21</a><a href="#card-C34" class="pill">C34</a><a href="#card-C36" class="pill">C36</a></p>
+  <p class="warn"><b>注意：</b>不要把看雙語字幕誤認為聽懂。影集生詞多，不適合完全初學者當主教材。</p>
+</article>
+
+<article class="resource-card" data-type="listening" data-priority="optional">
+  <div class="card-top"><span class="rid">L06</span><span class="level">A2-C1</span></div>
+  <h3>英文歌</h3>
+  <div class="tags"><span class="tag">發音節奏</span><span class="tag">連音</span><span class="tag">弱讀</span><span class="tag">語感</span></div>
+  <p><b>第一次怎麼用：</b>選喜歡的歌，先看歌詞理解，再有意識辨識句子，最後跟唱。</p>
+  <p><b>搭配卡片：</b><a href="#card-C22" class="pill">C22</a><a href="#card-C39" class="pill">C39</a></p>
+  <p class="warn"><b>注意：</b>唱歌是輔助，不是完整聽力訓練。不要把所有時間都放在歌上。</p>
+</article>
+
+<article class="resource-card" data-type="listening" data-priority="advanced">
+  <div class="card-top"><span class="rid">L07</span><span class="level">B2-C1</span></div>
+  <h3>Twitch / 英文直播</h3>
+  <div class="tags"><span class="tag">自然語速</span><span class="tag">真實互動</span><span class="tag">興趣主題</span></div>
+  <p><b>第一次怎麼用：</b>選自己熟悉的主題，例如遊戲、科技、健身。只抓大意與常見表達，不追求每句都懂。</p>
+  <p><b>搭配卡片：</b><a href="#card-C19" class="pill">C19</a><a href="#card-C21" class="pill">C21</a><a href="#card-C32" class="pill">C32</a></p>
+  <p class="warn"><b>注意：</b>直播很雜，初學者容易挫折。只建議作為泛聽補充。</p>
+</article>
+
+<article class="resource-card" data-type="reading" data-priority="main">
+  <div class="card-top"><span class="rid">R01</span><span class="level">A2-B2</span></div>
+  <h3>短英文文章</h3>
+  <div class="tags"><span class="tag">精讀</span><span class="tag">句型分析</span><span class="tag">表達抽取</span></div>
+  <p><b>第一次怎麼用：</b>選 500-1200 字文章。先自己讀，再用 C25 拆結構，用 C31 做摘要。</p>
+  <p><b>搭配卡片：</b><a href="#card-C25" class="pill">C25</a><a href="#card-C28" class="pill">C28</a><a href="#card-C31" class="pill">C31</a><a href="#card-C32" class="pill">C32</a></p>
+  <p class="warn"><b>注意：</b>不要一開始就全文翻譯。先自己抓主旨。</p>
+</article>
+
+<article class="resource-card" data-type="reading" data-priority="main">
+  <div class="card-top"><span class="rid">R02</span><span class="level">B1-C1</span></div>
+  <h3>原文書</h3>
+  <div class="tags"><span class="tag">泛讀</span><span class="tag">長期語感</span><span class="tag">閱讀耐力</span></div>
+  <p><b>第一次怎麼用：</b>先選你有興趣、難度不太高的書。每天固定讀少量，不查每個字。</p>
+  <p><b>搭配卡片：</b><a href="#card-C26" class="pill">C26</a><a href="#card-C30" class="pill">C30</a><a href="#card-C31" class="pill">C31</a></p>
+  <p class="warn"><b>注意：</b>不要用太難的書證明自己努力。能持續讀下去更重要。</p>
+</article>
+
+<article class="resource-card" data-type="reading" data-priority="main">
+  <div class="card-top"><span class="rid">R03</span><span class="level">B1-C1</span></div>
+  <h3>英文技術文檔</h3>
+  <div class="tags"><span class="tag">工程師</span><span class="tag">設計師</span><span class="tag">產品人</span><span class="tag">工具學習</span></div>
+  <p><b>第一次怎麼用：</b>先看目錄與範例，不要逐字硬讀。用 C27 抽核心名詞、功能、限制與範例。</p>
+  <p><b>搭配卡片：</b><a href="#card-C27" class="pill">C27</a><a href="#card-C28" class="pill">C28</a><a href="#card-C31" class="pill">C31</a><a href="#card-C53" class="pill">C53</a></p>
+  <p class="warn"><b>注意：</b>技術文檔不是一般文章。讀懂任務比逐字翻譯更重要。</p>
+</article>
+
+<article class="resource-card" data-type="reading" data-priority="optional">
+  <div class="card-top"><span class="rid">R04</span><span class="level">B1-C1</span></div>
+  <h3>Medium / 英文部落格文章</h3>
+  <div class="tags"><span class="tag">觀點閱讀</span><span class="tag">技術趨勢</span><span class="tag">寫作表達</span><span class="tag">摘要練習</span></div>
+  <p><b>第一次怎麼用：</b>選一篇與你工作或興趣相關的文章。先抓主旨，再抽 5 個可重複使用的表達。</p>
+  <p><b>搭配卡片：</b><a href="#card-C25" class="pill">C25</a><a href="#card-C31" class="pill">C31</a><a href="#card-C32" class="pill">C32</a><a href="#card-C47" class="pill">C47</a></p>
+  <p class="warn"><b>注意：</b>文章品質不一，請先看作者與內容是否可靠。</p>
+</article>
+
+<article class="resource-card" data-type="reading" data-priority="optional">
+  <div class="card-top"><span class="rid">R05</span><span class="level">B1-C1</span></div>
+  <h3>Quora / Reddit</h3>
+  <div class="tags"><span class="tag">自然語氣</span><span class="tag">觀點表達</span><span class="tag">問答英文</span><span class="tag">口語化寫作</span></div>
+  <p><b>第一次怎麼用：</b>找你熟悉主題的問答串。不要刷太久，只挑 1-2 則回答做摘要與表達抽取。</p>
+  <p><b>搭配卡片：</b><a href="#card-C29" class="pill">C29</a><a href="#card-C31" class="pill">C31</a><a href="#card-C32" class="pill">C32</a><a href="#card-C40" class="pill">C40</a></p>
+  <p class="warn"><b>注意：</b>留言品質不穩，不適合作為唯一學習來源。</p>
+</article>
+
+<article class="resource-card" data-type="reading" data-priority="advanced">
+  <div class="card-top"><span class="rid">R06</span><span class="level">B2-C1</span></div>
+  <h3>Hacker News / Stack Overflow</h3>
+  <div class="tags"><span class="tag">技術英文</span><span class="tag">問題描述</span><span class="tag">工程討論</span><span class="tag">簡潔表達</span></div>
+  <p><b>第一次怎麼用：</b>選一個熟悉技術主題，先看問題與最高票回答，抽出問題描述句型與解法說明句型。</p>
+  <p><b>搭配卡片：</b><a href="#card-C27" class="pill">C27</a><a href="#card-C32" class="pill">C32</a><a href="#card-C43" class="pill">C43</a><a href="#card-C55" class="pill">C55</a></p>
+  <p class="warn"><b>注意：</b>不熟技術背景時容易看不懂，不建議初學者一開始使用。</p>
+</article>
+
+<article class="resource-card" data-type="speaking" data-priority="main">
+  <div class="card-top"><span class="rid">S01</span><span class="level">A2-C1</span></div>
+  <h3>Gemini Live / ChatGPT Voice / 語音對話</h3>
+  <div class="tags"><span class="tag">口說</span><span class="tag">即時互動</span><span class="tag">發音與流暢度</span><span class="tag">場景模擬</span></div>
+  <p><b>第一次怎麼用：</b>每天 10-15 分鐘，只練一個場景。請 AI 每 3 輪給一次簡短回饋。</p>
+  <p><b>搭配卡片：</b><a href="#card-C50" class="pill">C50</a><a href="#card-C36" class="pill">C36</a><a href="#card-C37" class="pill">C37</a><a href="#card-C38" class="pill">C38</a></p>
+  <p class="warn"><b>注意：</b>不要讓 AI 講太多。你的輸出時間要比 AI 多。</p>
+</article>
+
+<article class="resource-card" data-type="speaking" data-priority="main">
+  <div class="card-top"><span class="rid">S02</span><span class="level">A1-B2</span></div>
+  <h3>每日口說題庫</h3>
+  <div class="tags"><span class="tag">建立開口習慣</span><span class="tag">常見問題</span><span class="tag">短句反射</span></div>
+  <p><b>第一次怎麼用：</b>每天選 1 題，先說 60 秒，再讓 AI 修正，最後重說一次。</p>
+  <p><b>搭配卡片：</b><a href="#card-C35" class="pill">C35</a><a href="#card-C36" class="pill">C36</a><a href="#card-C38" class="pill">C38</a></p>
+  <p class="warn"><b>注意：</b>不要一開始追求長篇回答。先能完整回答就好。</p>
+</article>
+
+<article class="resource-card" data-type="speaking" data-priority="main">
+  <div class="card-top"><span class="rid">S03</span><span class="level">B1-C1</span></div>
+  <h3>英文會議 / 面試 / 周報模擬</h3>
+  <div class="tags"><span class="tag">職場英文</span><span class="tag">面試</span><span class="tag">會議發言</span><span class="tag">簡潔表達</span></div>
+  <p><b>第一次怎麼用：</b>準備一段真實工作情境，讓 AI 扮演同事、主管或面試官，逐題追問。</p>
+  <p><b>搭配卡片：</b><a href="#card-C37" class="pill">C37</a><a href="#card-C43" class="pill">C43</a><a href="#card-C56" class="pill">C56</a></p>
+  <p class="warn"><b>注意：</b>不要讓 AI 只幫你寫稿。一定要讓它追問你。</p>
+</article>
+
+<article class="resource-card" data-type="speaking" data-priority="optional">
+  <div class="card-top"><span class="rid">S04</span><span class="level">A2-C1</span></div>
+  <h3>看圖 / 看螢幕說英文</h3>
+  <div class="tags"><span class="tag">描述能力</span><span class="tag">臨場組織</span><span class="tag">畫面說明</span></div>
+  <p><b>第一次怎麼用：</b>拿一張圖片、簡報、圖表或螢幕截圖，請 AI 問你看到什麼，再修正你的描述。</p>
+  <p><b>搭配卡片：</b><a href="#card-C34" class="pill">C34</a><a href="#card-C36" class="pill">C36</a><a href="#card-C50" class="pill">C50</a></p>
+  <p class="warn"><b>注意：</b>重點是清楚描述，不是使用高級詞。</p>
+</article>
+
+<article class="resource-card" data-type="writing" data-priority="main">
+  <div class="card-top"><span class="rid">W01</span><span class="level">A1-B2</span></div>
+  <h3>英文日記</h3>
+  <div class="tags"><span class="tag">建立寫作習慣</span><span class="tag">日常表達</span><span class="tag">情緒與生活描述</span></div>
+  <p><b>第一次怎麼用：</b>每天寫 3-5 句，不追求高級。用 C41 找錯，用 C45 自己重寫。</p>
+  <p><b>搭配卡片：</b><a href="#card-C41" class="pill">C41</a><a href="#card-C42" class="pill">C42</a><a href="#card-C45" class="pill">C45</a><a href="#card-C60" class="pill">C60</a></p>
+  <p class="warn"><b>注意：</b>不要讓 AI 直接代寫你的日記。</p>
+</article>
+
+<article class="resource-card" data-type="writing" data-priority="main">
+  <div class="card-top"><span class="rid">W02</span><span class="level">B1-C1</span></div>
+  <h3>英文 Email</h3>
+  <div class="tags"><span class="tag">職場英文</span><span class="tag">語氣調整</span><span class="tag">簡潔表達</span></div>
+  <p><b>第一次怎麼用：</b>先自己寫，再讓 AI 給 polite / concise / direct 三種版本，比較語氣差異。</p>
+  <p><b>搭配卡片：</b><a href="#card-C43" class="pill">C43</a><a href="#card-C45" class="pill">C45</a><a href="#card-C52" class="pill">C52</a></p>
+  <p class="warn"><b>注意：</b>涉及公司或客戶資訊時，先脫敏再貼給 AI。</p>
+</article>
+
+<article class="resource-card" data-type="writing" data-priority="optional">
+  <div class="card-top"><span class="rid">W03</span><span class="level">B1-C1</span></div>
+  <h3>英文工作進度更新</h3>
+  <div class="tags"><span class="tag">Slack</span><span class="tag">周報</span><span class="tag">會議前準備</span><span class="tag">職場簡潔表達</span></div>
+  <p><b>第一次怎麼用：</b>把中文或英文粗略筆記整理成英文 update，再讓 AI 指出 5 個可複用表達。</p>
+  <p><b>搭配卡片：</b><a href="#card-C43" class="pill">C43</a><a href="#card-C47" class="pill">C47</a><a href="#card-C52" class="pill">C52</a><a href="#card-C56" class="pill">C56</a></p>
+  <p class="warn"><b>注意：</b>不要只追求漂亮英文，重點是清楚、短、可執行。</p>
+</article>
+
+<article class="resource-card" data-type="writing" data-priority="optional">
+  <div class="card-top"><span class="rid">W04</span><span class="level">B1-C1</span></div>
+  <h3>英文作文</h3>
+  <div class="tags"><span class="tag">考試</span><span class="tag">論述能力</span><span class="tag">段落結構</span></div>
+  <p><b>第一次怎麼用：</b>先自己寫第一版。讓 AI 按任務回應、結構、詞彙、文法分類批改。</p>
+  <p><b>搭配卡片：</b><a href="#card-C41" class="pill">C41</a><a href="#card-C44" class="pill">C44</a><a href="#card-C45" class="pill">C45</a><a href="#card-C60" class="pill">C60</a></p>
+  <p class="warn"><b>注意：</b>不要直接讓 AI 寫範文。先暴露自己的問題。</p>
+</article>
+
+<article class="resource-card" data-type="vocabulary" data-priority="main">
+  <div class="card-top"><span class="rid">V01</span><span class="level">A1-C1</span></div>
+  <h3>自己的單字 / 句子 / 錯題</h3>
+  <div class="tags"><span class="tag">個人化複習</span><span class="tag">錯題整理</span><span class="tag">Flashcards</span></div>
+  <p><b>第一次怎麼用：</b>貼上自己的單字或句子，用 C08 解釋語境，用 C14 轉 Flashcards，用 C53 出測驗。</p>
+  <p><b>搭配卡片：</b><a href="#card-C08" class="pill">C08</a><a href="#card-C14" class="pill">C14</a><a href="#card-C53" class="pill">C53</a></p>
+  <p class="warn"><b>注意：</b>不要只保存單字，要造句和測驗。</p>
+</article>
+
+<article class="resource-card" data-type="vocabulary" data-priority="main">
+  <div class="card-top"><span class="rid">V02</span><span class="level">A1-C1</span></div>
+  <h3>AI 生成今日單字</h3>
+  <div class="tags"><span class="tag">沒有材料的人</span><span class="tag">每日練習</span><span class="tag">主題單字</span></div>
+  <p><b>第一次怎麼用：</b>告訴 AI 你的程度、目標和主題，請它挑 10 個今天最適合練的詞，再做 Quiz / Flashcards。</p>
+  <p><b>搭配卡片：</b><a href="#card-C08" class="pill">C08</a><a href="#card-C14" class="pill">C14</a><a href="#card-C53" class="pill">C53</a></p>
+  <p class="warn"><b>注意：</b>一次不要超過 10 個詞。重點是能用，不是看起來高級。</p>
+</article>
+
+<article class="resource-card" data-type="vocabulary" data-priority="main">
+  <div class="card-top"><span class="rid">V03</span><span class="level">A2-C1</span></div>
+  <h3>從文章 / 逐字稿抽詞</h3>
+  <div class="tags"><span class="tag">閱讀後複習</span><span class="tag">聽力後複習</span><span class="tag">材料再利用</span></div>
+  <p><b>第一次怎麼用：</b>貼文章或逐字稿，請 AI 抽 5-10 個高頻、可複用表達，再轉 Flashcards。</p>
+  <p><b>搭配卡片：</b><a href="#card-C14" class="pill">C14</a><a href="#card-C32" class="pill">C32</a><a href="#card-C53" class="pill">C53</a><a href="#card-C54" class="pill">C54</a></p>
+  <p class="warn"><b>注意：</b>不要只挑罕見難字。優先挑能在口說與寫作中復用的表達。</p>
+</article>
+
+<article class="resource-card" data-type="ai" data-priority="main">
+  <div class="card-top"><span class="rid">A01</span><span class="level">A1-C1</span></div>
+  <h3>Gemini</h3>
+  <div class="tags"><span class="tag">長期英文課程</span><span class="tag">Gem</span><span class="tag">Live 口說</span><span class="tag">Guided Learning</span></div>
+  <p><b>第一次怎麼用：</b>優先用 C49 建立英文教練，再用 C50 練口說、C51 做閱讀、C52 改寫作、C53 做複習。</p>
+  <p><b>搭配卡片：</b><a href="#card-C49" class="pill">C49</a><a href="#card-C50" class="pill">C50</a><a href="#card-C51" class="pill">C51</a><a href="#card-C52" class="pill">C52</a><a href="#card-C53" class="pill">C53</a></p>
+  <p class="warn"><b>注意：</b>不要迷信官方預設學習 Gem。建議自己建立 English Coach 設定。</p>
+</article>
+
+<article class="resource-card" data-type="ai" data-priority="main">
+  <div class="card-top"><span class="rid">A02</span><span class="level">A1-C1</span></div>
+  <h3>ChatGPT</h3>
+  <div class="tags"><span class="tag">分步教學</span><span class="tag">Projects</span><span class="tag">語法講解</span><span class="tag">文章精讀</span></div>
+  <p><b>第一次怎麼用：</b>把本工具 Prompt 貼到一般對話或專案中。練閱讀時要求它一步一步問你，不要直接給答案。</p>
+  <p><b>搭配卡片：</b><a href="#card-C25" class="pill">C25</a><a href="#card-C31" class="pill">C31</a><a href="#card-C49" class="pill">C49</a><a href="#card-C50" class="pill">C50</a><a href="#card-C55" class="pill">C55</a><a href="#card-C58" class="pill">C58</a></p>
+  <p class="warn"><b>注意：</b>不要只叫它翻譯或代寫。要讓它追問、批改、整理錯誤。</p>
+</article>
+
+<article class="resource-card" data-type="ai" data-priority="main">
+  <div class="card-top"><span class="rid">A03</span><span class="level">B1-C1</span></div>
+  <h3>Claude</h3>
+  <div class="tags"><span class="tag">長文精讀</span><span class="tag">寫作回饋</span><span class="tag">風格訓練</span><span class="tag">Projects</span></div>
+  <p><b>第一次怎麼用：</b>適合貼長文章、作文、英文郵件樣本，請它做結構分析、風格對照與重寫建議。</p>
+  <p><b>搭配卡片：</b><a href="#card-C25" class="pill">C25</a><a href="#card-C41" class="pill">C41</a><a href="#card-C42" class="pill">C42</a><a href="#card-C45" class="pill">C45</a><a href="#card-C52" class="pill">C52</a></p>
+  <p class="warn"><b>注意：</b>不要讓它直接重寫完就結束。一定要自己改第二版。</p>
+</article>
+
+<article class="resource-card" data-type="ai" data-priority="optional">
+  <div class="card-top"><span class="rid">A04</span><span class="level">B1-C1</span></div>
+  <h3>Perplexity</h3>
+  <div class="tags"><span class="tag">找英文材料</span><span class="tag">追新資料</span><span class="tag">帶引用閱讀</span><span class="tag">主題研究</span></div>
+  <p><b>第一次怎麼用：</b>先用它找主題英文資料，再把文章交給 Gemini / ChatGPT / Claude 做精讀、測驗與摘要。</p>
+  <p><b>搭配卡片：</b><a href="#card-C17" class="pill">C17</a><a href="#card-C25" class="pill">C25</a><a href="#card-C31" class="pill">C31</a><a href="#card-C55" class="pill">C55</a></p>
+  <p class="warn"><b>注意：</b>它更像資料搜尋與選材工具，不是主要英文教練。</p>
+</article>
+
+<article class="resource-card" data-type="ai" data-priority="optional">
+  <div class="card-top"><span class="rid">A05</span><span class="level">B1-C1</span></div>
+  <h3>DeepL Write</h3>
+  <div class="tags"><span class="tag">最後潤飾</span><span class="tag">自然度</span><span class="tag">語氣</span><span class="tag">簡潔表達</span></div>
+  <p><b>第一次怎麼用：</b>在自己寫完、AI 批改完、自己重寫後，最後再用 DeepL Write 檢查語氣與自然度。</p>
+  <p><b>搭配卡片：</b><a href="#card-C42" class="pill">C42</a><a href="#card-C43" class="pill">C43</a><a href="#card-C45" class="pill">C45</a><a href="#card-C52" class="pill">C52</a></p>
+  <p class="warn"><b>注意：</b>不應取代前面的構思、輸出與錯誤整理。</p>
+</article>
+  </div>
 </section>
 
 <section class="section" id="toolbox">
   <div class="section-head"><span class="kicker">Prompt Toolbox</span><h2>Prompt 卡：打開、複製、貼到 AI</h2></div>
-  <p>本區共 60 張卡。每張卡都包含主 Prompt、二次追問，以及 AI 回覆後要做的事。</p>
-  <p class="copy-note">手機若無法自動複製，請長按 Prompt 文字框，全選後手動複製。</p>
+  <p>本區共 60 張卡。每張卡都包含主 Prompt、二次追問，以及 AI 回覆後要做的事。</p><p class="copy-note">手機若無法自動複製，請長按 Prompt 文字框，全選後手動複製。</p>
   <div class="prompt-toolbar" id="cardFilters">
     <button class="filter-btn active" data-filter="all">全部</button>
     <button class="filter-btn" data-filter="認知篇">認知篇</button>
@@ -103,13 +1432,1818 @@
     <button class="filter-btn" data-filter="寫作篇">寫作篇</button>
     <button class="filter-btn" data-filter="AI 篇">AI 篇</button>
   </div>
-  <div id="promptCards"></div>
+  
+<details class="prompt-card" id="card-C01" data-chapter="認知篇">
+  <summary><b>C01｜學習目標診斷</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「學習目標診斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C01｜學習目標診斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C02" data-chapter="認知篇">
+  <summary><b>C02｜英文使用場景定位</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「英文使用場景定位」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C02｜英文使用場景定位」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C03" data-chapter="認知篇">
+  <summary><b>C03｜假努力檢查</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「假努力檢查」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C03｜假努力檢查」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C04" data-chapter="認知篇">
+  <summary><b>C04｜用力過猛檢查</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「用力過猛檢查」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C04｜用力過猛檢查」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C05" data-chapter="認知篇">
+  <summary><b>C05｜情緒阻塞修正</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「情緒阻塞修正」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C05｜情緒阻塞修正」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C06" data-chapter="認知篇">
+  <summary><b>C06｜輸出驅動計畫</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「輸出驅動計畫」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C06｜輸出驅動計畫」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C07" data-chapter="認知篇">
+  <summary><b>C07｜安全口說環境建立</b><span>認知篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「安全口說環境建立」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C07｜安全口說環境建立」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「認知篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C08" data-chapter="單詞篇">
+  <summary><b>C08｜單字語境學習</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「單字語境學習」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文單字語境教練。
+
+請先問我：你要使用哪一種材料？
+A. 我已有自己的單字 / 句子
+B. 我沒有材料，請你依我的程度、目標和主題幫我挑今天要練的 10 個詞
+
+如果我選 A，請要求我貼上單字或句子，然後幫我解釋核心意思、繁中補充、自然英文例句、常見搭配、3 題小測驗，最後要求我用其中 3 個詞造句。
+
+如果我選 B，請先問我的英文程度、學習目標、今天主題，再挑 10 個今天適合練的英文詞或短語，並完成語境、例句、搭配、測驗與造句任務。
+
+請不要一次丟太多內容。先完成材料來源選擇，再開始教學。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成造句 / 測驗 / Flashcards 後，把錯誤整理成明天要複習的 5 個項目。</p>
+</details>
+
+<details class="prompt-card" id="card-C09" data-chapter="單詞篇">
+  <summary><b>C09｜發音與音標檢查</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「發音與音標檢查」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C09｜發音與音標檢查」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C10" data-chapter="單詞篇">
+  <summary><b>C10｜視覺 / 聽覺學習偏好診斷</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「視覺 / 聽覺學習偏好診斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C10｜視覺 / 聽覺學習偏好診斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C11" data-chapter="單詞篇">
+  <summary><b>C11｜搭配詞訓練</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「搭配詞訓練」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C11｜搭配詞訓練」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C12" data-chapter="單詞篇">
+  <summary><b>C12｜近義詞比較</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「近義詞比較」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C12｜近義詞比較」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C13" data-chapter="單詞篇">
+  <summary><b>C13｜艾賓浩斯複習排程</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「艾賓浩斯複習排程」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C13｜艾賓浩斯複習排程」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C14" data-chapter="單詞篇">
+  <summary><b>C14｜Anki 卡片生成</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「Anki 卡片生成」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的 Anki / Flashcards 英文卡片教練。
+
+請先問我：你要使用哪一種材料？
+A. 我已有自己的單字、文章或影片逐字稿
+B. 我沒有材料，請你依我的程度、目標和主題先幫我挑詞
+
+如果我選 A，請要求我貼上材料，從材料中挑出最值得記的英文詞或短語。
+如果我選 B，請先問我的程度、目標、主題、想產生幾張卡片。
+
+每張卡請包含：
+Front、Back、English example、Usage note、Review question、My sentence。
+
+最後請輸出成表格，方便我複製到 Anki 或其他 Flashcards 工具。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成造句 / 測驗 / Flashcards 後，把錯誤整理成明天要複習的 5 個項目。</p>
+</details>
+
+<details class="prompt-card" id="card-C15" data-chapter="單詞篇">
+  <summary><b>C15｜雲單字本整理</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「雲單字本整理」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C15｜雲單字本整理」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C16" data-chapter="單詞篇">
+  <summary><b>C16｜總是記不住單字診斷</b><span>單詞篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「總是記不住單字診斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C16｜總是記不住單字診斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「單詞篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C17" data-chapter="聽力篇">
+  <summary><b>C17｜聽力材料選擇器</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「聽力材料選擇器」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C17｜聽力材料選擇器」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C18" data-chapter="聽力篇">
+  <summary><b>C18｜精聽拆句</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「精聽拆句」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C18｜精聽拆句」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C19" data-chapter="聽力篇">
+  <summary><b>C19｜泛聽 14 天計畫</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「泛聽 14 天計畫」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C19｜泛聽 14 天計畫」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C20" data-chapter="聽力篇">
+  <summary><b>C20｜字幕依賴戒斷</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「字幕依賴戒斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C20｜字幕依賴戒斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C21" data-chapter="聽力篇">
+  <summary><b>C21｜非慢速英語診斷</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「非慢速英語診斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C21｜非慢速英語診斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C22" data-chapter="聽力篇">
+  <summary><b>C22｜歌詞聽力練習</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「歌詞聽力練習」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C22｜歌詞聽力練習」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C23" data-chapter="聽力篇">
+  <summary><b>C23｜Podcast / YouTube 轉 Quiz</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「Podcast / YouTube 轉 Quiz」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C23｜Podcast / YouTube 轉 Quiz」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C24" data-chapter="聽力篇">
+  <summary><b>C24｜聽力錯題本</b><span>聽力篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「聽力錯題本」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C24｜聽力錯題本」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「聽力篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C25" data-chapter="閱讀篇">
+  <summary><b>C25｜精讀文章拆解</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「精讀文章拆解」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C25｜精讀文章拆解」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C26" data-chapter="閱讀篇">
+  <summary><b>C26｜泛讀書籍選擇器</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「泛讀書籍選擇器」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C26｜泛讀書籍選擇器」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C27" data-chapter="閱讀篇">
+  <summary><b>C27｜英文技術文檔閱讀</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「英文技術文檔閱讀」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C27｜英文技術文檔閱讀」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C28" data-chapter="閱讀篇">
+  <summary><b>C28｜生字處理策略</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「生字處理策略」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C28｜生字處理策略」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C29" data-chapter="閱讀篇">
+  <summary><b>C29｜段落功能標註</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「段落功能標註」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C29｜段落功能標註」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
+
+<details class="prompt-card" id="card-C30" data-chapter="閱讀篇">
+  <summary><b>C30｜原文書難度判斷</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「原文書難度判斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C30｜原文書難度判斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C31" data-chapter="閱讀篇">
+  <summary><b>C31｜閱讀後英文摘要</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「閱讀後英文摘要」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C31｜閱讀後英文摘要」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C32" data-chapter="閱讀篇">
+  <summary><b>C32｜文章表達抽取</b><span>閱讀篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「文章表達抽取」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C32｜文章表達抽取」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「閱讀篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C33" data-chapter="口語篇">
+  <summary><b>C33｜發音 / 音標入門</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「發音 / 音標入門」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C33｜發音 / 音標入門」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C34" data-chapter="口語篇">
+  <summary><b>C34｜大聲朗讀跟讀</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「大聲朗讀跟讀」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C34｜大聲朗讀跟讀」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C35" data-chapter="口語篇">
+  <summary><b>C35｜中翻英卡關診斷</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「中翻英卡關診斷」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C35｜中翻英卡關診斷」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C36" data-chapter="口語篇">
+  <summary><b>C36｜日常口說角色扮演</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「日常口說角色扮演」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C36｜日常口說角色扮演」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C37" data-chapter="口語篇">
+  <summary><b>C37｜職場口說角色扮演</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「職場口說角色扮演」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C37｜職場口說角色扮演」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C38" data-chapter="口語篇">
+  <summary><b>C38｜常見問題口說訓練</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「常見問題口說訓練」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C38｜常見問題口說訓練」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C39" data-chapter="口語篇">
+  <summary><b>C39｜英文歌跟唱訓練</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「英文歌跟唱訓練」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C39｜英文歌跟唱訓練」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C40" data-chapter="口語篇">
+  <summary><b>C40｜陌生人交流暖身</b><span>口語篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「陌生人交流暖身」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C40｜陌生人交流暖身」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「口語篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C41" data-chapter="寫作篇">
+  <summary><b>C41｜作文逐句批改</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「作文逐句批改」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C41｜作文逐句批改」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C42" data-chapter="寫作篇">
+  <summary><b>C42｜自然英文改寫</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「自然英文改寫」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C42｜自然英文改寫」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C43" data-chapter="寫作篇">
+  <summary><b>C43｜商務郵件潤飾</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「商務郵件潤飾」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C43｜商務郵件潤飾」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C44" data-chapter="寫作篇">
+  <summary><b>C44｜寫作回饋吸收</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「寫作回饋吸收」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C44｜寫作回饋吸收」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C45" data-chapter="寫作篇">
+  <summary><b>C45｜AI 改稿後自我重寫</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「AI 改稿後自我重寫」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C45｜AI 改稿後自我重寫」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C46" data-chapter="寫作篇">
+  <summary><b>C46｜標題誠實檢查</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「標題誠實檢查」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C46｜標題誠實檢查」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C47" data-chapter="寫作篇">
+  <summary><b>C47｜讀寫連動仿寫</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「讀寫連動仿寫」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C47｜讀寫連動仿寫」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C48" data-chapter="寫作篇">
+  <summary><b>C48｜作品交流回饋模板</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「作品交流回饋模板」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C48｜作品交流回饋模板」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「寫作篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C49" data-chapter="AI 篇">
+  <summary><b>C49｜AI 英文教練設定卡</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「AI 英文教練設定卡」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>Gemini 可走主路線；ChatGPT 可用 Project / Custom GPT / Voice / Canvas；Claude 可用 Project / Artifacts 或一般對話。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的長期 AI 英文教練設定助手。
+
+請先問我 6 個問題：英文程度、學習目標、每天可用時間、最想練的技能、常犯錯、偏好回覆語言。
+然後幫我產生一份可貼到 Gemini Gem、ChatGPT Project / Custom GPT、Claude Project 的 English Coach 設定。
+
+要求：
+1. 不要直接給我答案
+2. 要追問我
+3. 要要求我輸出英文
+4. 要批改後讓我重說或重寫
+5. 要幫我留下錯誤與下次複習任務</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>不要只看修正。請重說或重寫一次，並保留一個可修正點。</p>
+</details>
+
+<details class="prompt-card" id="card-C50" data-chapter="AI 篇">
+  <summary><b>C50｜AI 語音口說練習卡</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「AI 語音口說練習卡」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>Gemini 可走主路線；ChatGPT 可用 Project / Custom GPT / Voice / Canvas；Claude 可用 Project / Artifacts 或一般對話。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的 AI 口說教練。
+
+請先問我想練的場景、程度與今天可用時間。
+接著用英文和我進行 5 輪對話。每次只問一題，不要一次給太多內容。
+每 2 輪後請用繁中簡短指出：
+1. 我最主要的 1 個問題
+2. 一個更自然說法
+3. 要求我重說一次
+
+如果我沒有語音功能，我會用文字回答，你仍然要用口說訓練方式追問我。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C51" data-chapter="AI 篇">
+  <summary><b>C51｜逐步引導閱讀卡</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「逐步引導閱讀卡」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>Gemini 可走主路線；ChatGPT 可用 Project / Custom GPT / Voice / Canvas；Claude 可用 Project / Artifacts 或一般對話。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C51｜逐步引導閱讀卡」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C52" data-chapter="AI 篇">
+  <summary><b>C52｜寫作編輯與批改卡</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「寫作編輯與批改卡」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>Gemini 可走主路線；ChatGPT 可用 Project / Custom GPT / Voice / Canvas；Claude 可用 Project / Artifacts 或一般對話。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文寫作編輯教練。
+
+請先要求我貼上自己寫的英文，不要直接代寫。
+收到後請分三步：
+1. 先指出最重要的 3 個問題
+2. 要求我自己改第二版
+3. 等我改完後，再給你建議版本並解釋差異
+
+請最後整理：
+- 我的常犯錯
+- 下次寫作前檢查表
+- 3 個要練習的句型</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C53" data-chapter="AI 篇">
+  <summary><b>C53｜測驗 / Flashcards 生成器</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「測驗 / Flashcards 生成器」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>Gemini 可走主路線；ChatGPT 可用 Project / Custom GPT / Voice / Canvas；Claude 可用 Project / Artifacts 或一般對話。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文測驗與 Flashcards 教練。
+
+請先問我：你要使用哪一種材料？
+A. 我已有文章、影片逐字稿、單字或學習筆記
+B. 我沒有材料，請你依我的程度、目標和主題幫我生成今天的練習材料
+
+如果我選 A，請要求我貼上材料，根據材料產生測驗。
+如果我選 B，請先問我的程度、目標、想練技能、今天主題。
+
+接著請幫我產生：
+1. 5 題選擇題
+2. 5 題填空題
+3. 5 張 Flashcards
+4. 3 題需要我用英文回答的問題
+5. 一份錯題整理表
+
+請先出題，不要立刻給答案。等我回答後，再批改並整理我最需要複習的地方。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成造句 / 測驗 / Flashcards 後，把錯誤整理成明天要複習的 5 個項目。</p>
+</details>
+
+<details class="prompt-card" id="card-C54" data-chapter="AI 篇">
+  <summary><b>C54｜材料再利用流程</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「材料再利用流程」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C54｜材料再利用流程」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C55" data-chapter="AI 篇">
+  <summary><b>C55｜AI 多模型分工選擇器</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「AI 多模型分工選擇器」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C55｜AI 多模型分工選擇器」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C56" data-chapter="AI 篇">
+  <summary><b>C56｜IELTS / 面試 / 會議模擬</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「IELTS / 面試 / 會議模擬」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C56｜IELTS / 面試 / 會議模擬」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C57" data-chapter="AI 篇">
+  <summary><b>C57｜一週訓練模板生成器</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「一週訓練模板生成器」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C57｜一週訓練模板生成器」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C58" data-chapter="AI 篇">
+  <summary><b>C58｜AI 反饋留痕表</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「AI 反饋留痕表」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C58｜AI 反饋留痕表」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C59" data-chapter="AI 篇">
+  <summary><b>C59｜隱私檢查提示</b><span>AI 篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「隱私檢查提示」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文學習教練。我要使用「C59｜隱私檢查提示」。
+
+請先問我：
+1. 我的英文程度
+2. 我的學習目標
+3. 今天可用時間
+4. 是否已有材料
+5. 我希望你用繁中補充還是全英文
+
+接著請依照「AI 篇」的學習目標，給我一個 10–15 分鐘內可以完成的練習。
+請不要只給答案。請先讓我回答、造句、重說、重寫或做測驗。
+我回答後，請只指出最重要的 3 個問題，並要求我再做一次。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>保存本次輸出、錯誤、修正版與下次複習任務。</p>
+</details>
+
+<details class="prompt-card" id="card-C60" data-chapter="寫作篇">
+  <summary><b>C60｜文法診斷與修正卡</b><span>寫作篇</span></summary>
+  <div class="meta-grid">
+    <p><b>適合：</b>想練「文法診斷與修正卡」的人</p>
+    <p><b>使用前：</b>程度、目標、今天可用時間；若有材料，先準備文字 / 單字 / 逐字稿。</p>
+  </div>
+  <p><b>工具對應：</b>任何 AI 都可使用。若是 Gemini，可直接貼到對話或 Gem；若是 ChatGPT / Claude，可貼到一般對話或 Project。</p>
+  <label class="small-label">主 Prompt</label>
+  <textarea readonly>請你擔任我的英文文法診斷教練。
+
+我會貼上英文句子或段落。請先判斷是否真的有錯，不要過度修改。
+請把錯誤分成：時態、冠詞、介系詞、主詞動詞一致、主動 / 被動、句子結構、其他。
+
+每個錯誤請說明：
+原句、問題、為什麼錯、正確版本、簡單記法。
+
+最後請給我 3 題針對我錯誤的練習。先不要給答案，等我回答後再批改。</textarea>
+  <button onclick="copyFrom(this)">複製主 Prompt</button>
+  <details class="subdetails">
+    <summary>二次追問 Prompt</summary>
+    <textarea readonly>請不要直接結束。請根據我剛才的回答，追問我 2 個問題，並要求我再輸出一次。
+請只指出最重要的 3 個問題，然後給我一個 10 分鐘內可以完成的修正任務。</textarea>
+    <button onclick="copyFrom(this)">複製二次追問</button>
+  </details>
+  <p class="after"><b>AI 回覆後：</b>完成 AI 要求的輸出，不只閱讀答案；把錯誤留下來，隔天用同一張卡再練一次。</p>
+</details>
 </section>
 
 <section class="section" id="plan">
   <div class="section-head"><span class="kicker">30-Day Plan</span><h2>30 天練習節奏</h2></div>
   <p>每天只需要完成一個可驗收輸出。不要把計畫做成壓力表。</p>
-  <div class="quick-grid" id="planGrid"></div>
+  <div class="quick-grid">
+    <div class="quick"><b>Day 1–7</b><br>建立目標、每日輸出、單字與口說安全環境。</div>
+    <div class="quick"><b>Day 8–14</b><br>固定聽力材料，開始精聽、跟讀、聽力錯題本。</div>
+    <div class="quick"><b>Day 15–21</b><br>閱讀短文、技術文檔或原文書，做英文摘要。</div>
+    <div class="quick"><b>Day 22–28</b><br>寫作與口說加強，自己先寫 / 先說，再讓 AI 批改。</div>
+    <div class="quick"><b>Day 29</b><br>整理本月錯誤、常用表達、Flashcards。</div>
+    <div class="quick"><b>Day 30</b><br>用 C57 生成下一週訓練計畫，用 C58 留痕。</div>
+  </div>
 </section>
 
 <section class="section about" id="about">
@@ -124,10 +3258,69 @@
   <p>本網站為非官方改編版本，已對原內容進行整理、節錄、重組、繁體中文轉寫與互動工具化設計；不代表原作者立場，也未暗示原作者背書。</p>
   <p>本網站不登入、不串接 API、不上傳、不預設儲存使用者輸入。</p>
   <p><b>工具整理與互動設計：</b>林勝堂（KimiLin）<br><b>AI 協作輔助：</b>使用 AI 工具進行內容整理、重構與測試</p>
-  <p>更多細節請見 <a href="LICENSE-NOTE.md">LICENSE-NOTE.md</a>、<a href="appendix/attribution.html">Attribution</a> 與 <a href="appendix/source-map.html">Source Map</a>。</p>
 </section>
+
 </main>
 </div>
-<script src="assets/app.js"></script>
+<script>
+function copyFrom(btn){
+  var ta = null;
+  var prev = btn.previousElementSibling;
+  if(prev && prev.tagName === 'TEXTAREA') {
+    ta = prev;
+  } else {
+    var parent = btn.parentElement;
+    ta = parent ? parent.querySelector('textarea') : null;
+  }
+  if(!ta) {
+    var card = btn.closest('details');
+    ta = card ? card.querySelector('textarea') : null;
+  }
+  if(!ta) { alert('找不到 Prompt 文字，請手動選取。'); return; }
+  var txt = ta.value || ta.textContent || '';
+  function done(){
+    var old = btn.textContent;
+    btn.textContent = '已複製';
+    setTimeout(function(){btn.textContent = old;}, 1200);
+  }
+  function fallback(){
+    try{
+      ta.removeAttribute('readonly');
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = document.execCommand('copy');
+      ta.setAttribute('readonly','readonly');
+      if(ok) done(); else throw new Error('copy failed');
+    }catch(e){
+      ta.setAttribute('readonly','readonly');
+      alert('手機瀏覽器可能不允許自動複製。請長按 Prompt 文字框，全選後複製。');
+    }
+  }
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(done).catch(fallback);
+  } else fallback();
+}
+document.querySelectorAll('#resourceFilters .filter-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('#resourceFilters .filter-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    var f = b.dataset.filter;
+    document.querySelectorAll('.resource-card').forEach(function(c){
+      c.style.display = (f === 'all' || c.dataset.type === f) ? '' : 'none';
+    });
+  });
+});
+document.querySelectorAll('#cardFilters .filter-btn').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('#cardFilters .filter-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    var f = b.dataset.filter;
+    document.querySelectorAll('.prompt-card').forEach(function(c){
+      c.style.display = (f === 'all' || c.dataset.chapter === f) ? '' : 'none';
+    });
+  });
+});
+</script>
 </body>
 </html>
