@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 英語學習互動指南 v2.3</title>
+<title>AI 英語學習互動指南 v2.4</title>
 <style>
 :root {
   --bg:#F7F3EA; --panel:#FFFDF7; --side:#EEE7DA; --ink:#242424; --muted:#6f6658;
@@ -85,7 +85,7 @@ button{border:0;background:var(--green);color:white;border-radius:12px;padding:9
 <div class="layout">
 <aside>
   <div class="brand">AI 英語學習互動指南</div>
-  <div class="version">v2.3 Static Fallback</div>
+  <div class="version">v2.4 No-Filter Static</div>
   <nav>
     <a href="#start">開始使用</a>
     <a href="#attribution-notice">來源聲明</a>
@@ -1145,15 +1145,6 @@ button{border:0;background:var(--green);color:white;border-radius:12px;padding:9
 <section class="section" id="resources">
   <div class="section-head"><span class="kicker">Resource Navigator</span><h2>資源導航：先選目標，再選材料</h2></div>
   <p>資源不要收藏，請直接使用。每個資源都要知道：適合誰、怎麼用、搭配哪張 Prompt 卡。</p>
-  <div class="filters" id="resourceFilters">
-    <button class="filter-btn active" data-filter="all">全部</button>
-    <button class="filter-btn" data-filter="listening">聽力</button>
-    <button class="filter-btn" data-filter="reading">閱讀</button>
-    <button class="filter-btn" data-filter="speaking">口說</button>
-    <button class="filter-btn" data-filter="writing">寫作</button>
-    <button class="filter-btn" data-filter="vocabulary">單字 / Flashcards</button>
-    <button class="filter-btn" data-filter="ai">AI 工具</button>
-  </div>
   <div class="resource-grid" id="resourceGrid">
     
 <article class="resource-card" data-type="listening" data-priority="main">
@@ -1422,18 +1413,7 @@ button{border:0;background:var(--green);color:white;border-radius:12px;padding:9
 <section class="section" id="toolbox">
   <div class="section-head"><span class="kicker">Prompt Toolbox</span><h2>Prompt 卡：打開、複製、貼到 AI</h2></div>
   <p>本區共 60 張卡。每張卡都包含主 Prompt、二次追問，以及 AI 回覆後要做的事。</p><p class="copy-note">手機若無法自動複製，請長按 Prompt 文字框，全選後手動複製。</p>
-  <div class="prompt-toolbar" id="cardFilters">
-    <button class="filter-btn active" data-filter="all">全部</button>
-    <button class="filter-btn" data-filter="認知篇">認知篇</button>
-    <button class="filter-btn" data-filter="單詞篇">單詞篇</button>
-    <button class="filter-btn" data-filter="聽力篇">聽力篇</button>
-    <button class="filter-btn" data-filter="閱讀篇">閱讀篇</button>
-    <button class="filter-btn" data-filter="口語篇">口語篇</button>
-    <button class="filter-btn" data-filter="寫作篇">寫作篇</button>
-    <button class="filter-btn" data-filter="AI 篇">AI 篇</button>
-  </div>
-  
-<details class="prompt-card" id="card-C01" data-chapter="認知篇">
+  <details class="prompt-card" id="card-C01" data-chapter="認知篇">
   <summary><b>C01｜學習目標診斷</b><span>認知篇</span></summary>
   <div class="meta-grid">
     <p><b>適合：</b>想練「學習目標診斷」的人</p>
@@ -3301,26 +3281,6 @@ function copyFrom(btn){
     navigator.clipboard.writeText(txt).then(done).catch(fallback);
   } else fallback();
 }
-document.querySelectorAll('#resourceFilters .filter-btn').forEach(function(b){
-  b.addEventListener('click', function(){
-    document.querySelectorAll('#resourceFilters .filter-btn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    var f = b.dataset.filter;
-    document.querySelectorAll('.resource-card').forEach(function(c){
-      c.style.display = (f === 'all' || c.dataset.type === f) ? '' : 'none';
-    });
-  });
-});
-document.querySelectorAll('#cardFilters .filter-btn').forEach(function(b){
-  b.addEventListener('click', function(){
-    document.querySelectorAll('#cardFilters .filter-btn').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    var f = b.dataset.filter;
-    document.querySelectorAll('.prompt-card').forEach(function(c){
-      c.style.display = (f === 'all' || c.dataset.chapter === f) ? '' : 'none';
-    });
-  });
-});
 </script>
 </body>
 </html>
