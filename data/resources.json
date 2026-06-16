@@ -1,0 +1,591 @@
+[
+  {
+    "id": "L01",
+    "name": "Basic English Grammar 類基礎英文影片",
+    "type": "listening",
+    "priority": "main",
+    "level": "A1-A2",
+    "best_for": [
+      "初學者",
+      "聽力入門",
+      "基礎句型",
+      "基礎語法"
+    ],
+    "how_to_use": "先選 3-8 分鐘短影片。不看字幕聽一次，再看英文字幕確認，最後用 C18 拆句。",
+    "paired_cards": [
+      "C17",
+      "C18",
+      "C20",
+      "C23"
+    ],
+    "warning": "不要一開始就挑太長、太快、太多生字的影片。"
+  },
+  {
+    "id": "L02",
+    "name": "New Concept English 3 / 4",
+    "type": "listening",
+    "priority": "main",
+    "level": "B1-B2",
+    "best_for": [
+      "精聽",
+      "聽寫",
+      "跟讀",
+      "句型吸收"
+    ],
+    "how_to_use": "每次只選一小段，反覆聽到能抓大意，再看文本，最後做聽寫與跟讀。",
+    "paired_cards": [
+      "C18",
+      "C24",
+      "C34"
+    ],
+    "warning": "不適合只當背景播放。這類材料的價值在精聽與跟讀。"
+  },
+  {
+    "id": "L03",
+    "name": "Podcast",
+    "type": "listening",
+    "priority": "main",
+    "level": "A2-C1",
+    "best_for": [
+      "泛聽",
+      "主題聽力",
+      "通勤學習",
+      "自然語速"
+    ],
+    "how_to_use": "選自己感興趣的主題。第一次抓大意，不查每個字；第二次挑 3-5 分鐘片段做精聽。",
+    "paired_cards": [
+      "C17",
+      "C19",
+      "C23",
+      "C24"
+    ],
+    "warning": "不要訂閱太多。先固定 1-2 個頻道。"
+  },
+  {
+    "id": "L04",
+    "name": "Audiobooks / 有聲書",
+    "type": "listening",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "泛聽",
+      "長時間語感",
+      "原文書搭配"
+    ],
+    "how_to_use": "選已讀過中文或熟悉情節的作品。先泛聽章節，再挑喜歡段落做精聽。",
+    "paired_cards": [
+      "C19",
+      "C26",
+      "C31"
+    ],
+    "warning": "生詞太多時不要硬聽，先降難度。"
+  },
+  {
+    "id": "L05",
+    "name": "英美劇",
+    "type": "listening",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "自然口語",
+      "日常表達",
+      "文化語境",
+      "泛聽"
+    ],
+    "how_to_use": "第一次可看字幕理解劇情；二刷短片段時關字幕，挑 1-2 分鐘做跟讀。",
+    "paired_cards": [
+      "C20",
+      "C21",
+      "C34",
+      "C36"
+    ],
+    "warning": "不要把看雙語字幕誤認為聽懂。影集生詞多，不適合完全初學者當主教材。"
+  },
+  {
+    "id": "L06",
+    "name": "英文歌",
+    "type": "listening",
+    "priority": "optional",
+    "level": "A2-C1",
+    "best_for": [
+      "發音節奏",
+      "連音",
+      "弱讀",
+      "語感"
+    ],
+    "how_to_use": "選喜歡的歌，先看歌詞理解，再有意識辨識句子，最後跟唱。",
+    "paired_cards": [
+      "C22",
+      "C39"
+    ],
+    "warning": "唱歌是輔助，不是完整聽力訓練。不要把所有時間都放在歌上。"
+  },
+  {
+    "id": "L07",
+    "name": "Twitch / 英文直播",
+    "type": "listening",
+    "priority": "advanced",
+    "level": "B2-C1",
+    "best_for": [
+      "自然語速",
+      "真實互動",
+      "興趣主題"
+    ],
+    "how_to_use": "選自己熟悉的主題，例如遊戲、科技、健身。只抓大意與常見表達，不追求每句都懂。",
+    "paired_cards": [
+      "C19",
+      "C21",
+      "C32"
+    ],
+    "warning": "直播很雜，初學者容易挫折。只建議作為泛聽補充。"
+  },
+  {
+    "id": "R01",
+    "name": "短英文文章",
+    "type": "reading",
+    "priority": "main",
+    "level": "A2-B2",
+    "best_for": [
+      "精讀",
+      "句型分析",
+      "表達抽取"
+    ],
+    "how_to_use": "選 500-1200 字文章。先自己讀，再用 C25 拆結構，用 C31 做摘要。",
+    "paired_cards": [
+      "C25",
+      "C28",
+      "C31",
+      "C32"
+    ],
+    "warning": "不要一開始就全文翻譯。先自己抓主旨。"
+  },
+  {
+    "id": "R02",
+    "name": "原文書",
+    "type": "reading",
+    "priority": "main",
+    "level": "B1-C1",
+    "best_for": [
+      "泛讀",
+      "長期語感",
+      "閱讀耐力"
+    ],
+    "how_to_use": "先選你有興趣、難度不太高的書。每天固定讀少量，不查每個字。",
+    "paired_cards": [
+      "C26",
+      "C30",
+      "C31"
+    ],
+    "warning": "不要用太難的書證明自己努力。能持續讀下去更重要。"
+  },
+  {
+    "id": "R03",
+    "name": "英文技術文檔",
+    "type": "reading",
+    "priority": "main",
+    "level": "B1-C1",
+    "best_for": [
+      "工程師",
+      "設計師",
+      "產品人",
+      "工具學習"
+    ],
+    "how_to_use": "先看目錄與範例，不要逐字硬讀。用 C27 抽核心名詞、功能、限制與範例。",
+    "paired_cards": [
+      "C27",
+      "C28",
+      "C31",
+      "C53"
+    ],
+    "warning": "技術文檔不是一般文章。讀懂任務比逐字翻譯更重要。"
+  },
+  {
+    "id": "R04",
+    "name": "Medium / 英文部落格文章",
+    "type": "reading",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "觀點閱讀",
+      "技術趨勢",
+      "寫作表達",
+      "摘要練習"
+    ],
+    "how_to_use": "選一篇與你工作或興趣相關的文章。先抓主旨，再抽 5 個可重複使用的表達。",
+    "paired_cards": [
+      "C25",
+      "C31",
+      "C32",
+      "C47"
+    ],
+    "warning": "文章品質不一，請先看作者與內容是否可靠。"
+  },
+  {
+    "id": "R05",
+    "name": "Quora / Reddit",
+    "type": "reading",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "自然語氣",
+      "觀點表達",
+      "問答英文",
+      "口語化寫作"
+    ],
+    "how_to_use": "找你熟悉主題的問答串。不要刷太久，只挑 1-2 則回答做摘要與表達抽取。",
+    "paired_cards": [
+      "C29",
+      "C31",
+      "C32",
+      "C40"
+    ],
+    "warning": "留言品質不穩，不適合作為唯一學習來源。"
+  },
+  {
+    "id": "R06",
+    "name": "Hacker News / Stack Overflow",
+    "type": "reading",
+    "priority": "advanced",
+    "level": "B2-C1",
+    "best_for": [
+      "技術英文",
+      "問題描述",
+      "工程討論",
+      "簡潔表達"
+    ],
+    "how_to_use": "選一個熟悉技術主題，先看問題與最高票回答，抽出問題描述句型與解法說明句型。",
+    "paired_cards": [
+      "C27",
+      "C32",
+      "C43",
+      "C55"
+    ],
+    "warning": "不熟技術背景時容易看不懂，不建議初學者一開始使用。"
+  },
+  {
+    "id": "S01",
+    "name": "Gemini Live / ChatGPT Voice / 語音對話",
+    "type": "speaking",
+    "priority": "main",
+    "level": "A2-C1",
+    "best_for": [
+      "口說",
+      "即時互動",
+      "發音與流暢度",
+      "場景模擬"
+    ],
+    "how_to_use": "每天 10-15 分鐘，只練一個場景。請 AI 每 3 輪給一次簡短回饋。",
+    "paired_cards": [
+      "C50",
+      "C36",
+      "C37",
+      "C38"
+    ],
+    "warning": "不要讓 AI 講太多。你的輸出時間要比 AI 多。"
+  },
+  {
+    "id": "S02",
+    "name": "每日口說題庫",
+    "type": "speaking",
+    "priority": "main",
+    "level": "A1-B2",
+    "best_for": [
+      "建立開口習慣",
+      "常見問題",
+      "短句反射"
+    ],
+    "how_to_use": "每天選 1 題，先說 60 秒，再讓 AI 修正，最後重說一次。",
+    "paired_cards": [
+      "C35",
+      "C36",
+      "C38"
+    ],
+    "warning": "不要一開始追求長篇回答。先能完整回答就好。"
+  },
+  {
+    "id": "S03",
+    "name": "英文會議 / 面試 / 周報模擬",
+    "type": "speaking",
+    "priority": "main",
+    "level": "B1-C1",
+    "best_for": [
+      "職場英文",
+      "面試",
+      "會議發言",
+      "簡潔表達"
+    ],
+    "how_to_use": "準備一段真實工作情境，讓 AI 扮演同事、主管或面試官，逐題追問。",
+    "paired_cards": [
+      "C37",
+      "C43",
+      "C56"
+    ],
+    "warning": "不要讓 AI 只幫你寫稿。一定要讓它追問你。"
+  },
+  {
+    "id": "S04",
+    "name": "看圖 / 看螢幕說英文",
+    "type": "speaking",
+    "priority": "optional",
+    "level": "A2-C1",
+    "best_for": [
+      "描述能力",
+      "臨場組織",
+      "畫面說明"
+    ],
+    "how_to_use": "拿一張圖片、簡報、圖表或螢幕截圖，請 AI 問你看到什麼，再修正你的描述。",
+    "paired_cards": [
+      "C34",
+      "C36",
+      "C50"
+    ],
+    "warning": "重點是清楚描述，不是使用高級詞。"
+  },
+  {
+    "id": "W01",
+    "name": "英文日記",
+    "type": "writing",
+    "priority": "main",
+    "level": "A1-B2",
+    "best_for": [
+      "建立寫作習慣",
+      "日常表達",
+      "情緒與生活描述"
+    ],
+    "how_to_use": "每天寫 3-5 句，不追求高級。用 C41 找錯，用 C45 自己重寫。",
+    "paired_cards": [
+      "C41",
+      "C42",
+      "C45",
+      "C60"
+    ],
+    "warning": "不要讓 AI 直接代寫你的日記。"
+  },
+  {
+    "id": "W02",
+    "name": "英文 Email",
+    "type": "writing",
+    "priority": "main",
+    "level": "B1-C1",
+    "best_for": [
+      "職場英文",
+      "語氣調整",
+      "簡潔表達"
+    ],
+    "how_to_use": "先自己寫，再讓 AI 給 polite / concise / direct 三種版本，比較語氣差異。",
+    "paired_cards": [
+      "C43",
+      "C45",
+      "C52"
+    ],
+    "warning": "涉及公司或客戶資訊時，先脫敏再貼給 AI。"
+  },
+  {
+    "id": "W03",
+    "name": "英文工作進度更新",
+    "type": "writing",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "Slack",
+      "周報",
+      "會議前準備",
+      "職場簡潔表達"
+    ],
+    "how_to_use": "把中文或英文粗略筆記整理成英文 update，再讓 AI 指出 5 個可複用表達。",
+    "paired_cards": [
+      "C43",
+      "C47",
+      "C52",
+      "C56"
+    ],
+    "warning": "不要只追求漂亮英文，重點是清楚、短、可執行。"
+  },
+  {
+    "id": "W04",
+    "name": "英文作文",
+    "type": "writing",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "考試",
+      "論述能力",
+      "段落結構"
+    ],
+    "how_to_use": "先自己寫第一版。讓 AI 按任務回應、結構、詞彙、文法分類批改。",
+    "paired_cards": [
+      "C41",
+      "C44",
+      "C45",
+      "C60"
+    ],
+    "warning": "不要直接讓 AI 寫範文。先暴露自己的問題。"
+  },
+  {
+    "id": "V01",
+    "name": "自己的單字 / 句子 / 錯題",
+    "type": "vocabulary",
+    "priority": "main",
+    "level": "A1-C1",
+    "best_for": [
+      "個人化複習",
+      "錯題整理",
+      "Flashcards"
+    ],
+    "how_to_use": "貼上自己的單字或句子，用 C08 解釋語境，用 C14 轉 Flashcards，用 C53 出測驗。",
+    "paired_cards": [
+      "C08",
+      "C14",
+      "C53"
+    ],
+    "warning": "不要只保存單字，要造句和測驗。"
+  },
+  {
+    "id": "V02",
+    "name": "AI 生成今日單字",
+    "type": "vocabulary",
+    "priority": "main",
+    "level": "A1-C1",
+    "best_for": [
+      "沒有材料的人",
+      "每日練習",
+      "主題單字"
+    ],
+    "how_to_use": "告訴 AI 你的程度、目標和主題，請它挑 10 個今天最適合練的詞，再做 Quiz / Flashcards。",
+    "paired_cards": [
+      "C08",
+      "C14",
+      "C53"
+    ],
+    "warning": "一次不要超過 10 個詞。重點是能用，不是看起來高級。"
+  },
+  {
+    "id": "V03",
+    "name": "從文章 / 逐字稿抽詞",
+    "type": "vocabulary",
+    "priority": "main",
+    "level": "A2-C1",
+    "best_for": [
+      "閱讀後複習",
+      "聽力後複習",
+      "材料再利用"
+    ],
+    "how_to_use": "貼文章或逐字稿，請 AI 抽 5-10 個高頻、可複用表達，再轉 Flashcards。",
+    "paired_cards": [
+      "C14",
+      "C32",
+      "C53",
+      "C54"
+    ],
+    "warning": "不要只挑罕見難字。優先挑能在口說與寫作中復用的表達。"
+  },
+  {
+    "id": "A01",
+    "name": "Gemini",
+    "type": "ai",
+    "priority": "main",
+    "level": "A1-C1",
+    "best_for": [
+      "長期英文課程",
+      "Gem",
+      "Live 口說",
+      "Guided Learning"
+    ],
+    "how_to_use": "優先用 C49 建立英文教練，再用 C50 練口說、C51 做閱讀、C52 改寫作、C53 做複習。",
+    "paired_cards": [
+      "C49",
+      "C50",
+      "C51",
+      "C52",
+      "C53"
+    ],
+    "warning": "不要迷信官方預設學習 Gem。建議自己建立 English Coach 設定。"
+  },
+  {
+    "id": "A02",
+    "name": "ChatGPT",
+    "type": "ai",
+    "priority": "main",
+    "level": "A1-C1",
+    "best_for": [
+      "分步教學",
+      "Projects",
+      "語法講解",
+      "文章精讀"
+    ],
+    "how_to_use": "把本工具 Prompt 貼到一般對話或專案中。練閱讀時要求它一步一步問你，不要直接給答案。",
+    "paired_cards": [
+      "C25",
+      "C31",
+      "C49",
+      "C50",
+      "C55",
+      "C58"
+    ],
+    "warning": "不要只叫它翻譯或代寫。要讓它追問、批改、整理錯誤。"
+  },
+  {
+    "id": "A03",
+    "name": "Claude",
+    "type": "ai",
+    "priority": "main",
+    "level": "B1-C1",
+    "best_for": [
+      "長文精讀",
+      "寫作回饋",
+      "風格訓練",
+      "Projects"
+    ],
+    "how_to_use": "適合貼長文章、作文、英文郵件樣本，請它做結構分析、風格對照與重寫建議。",
+    "paired_cards": [
+      "C25",
+      "C41",
+      "C42",
+      "C45",
+      "C52"
+    ],
+    "warning": "不要讓它直接重寫完就結束。一定要自己改第二版。"
+  },
+  {
+    "id": "A04",
+    "name": "Perplexity",
+    "type": "ai",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "找英文材料",
+      "追新資料",
+      "帶引用閱讀",
+      "主題研究"
+    ],
+    "how_to_use": "先用它找主題英文資料，再把文章交給 Gemini / ChatGPT / Claude 做精讀、測驗與摘要。",
+    "paired_cards": [
+      "C17",
+      "C25",
+      "C31",
+      "C55"
+    ],
+    "warning": "它更像資料搜尋與選材工具，不是主要英文教練。"
+  },
+  {
+    "id": "A05",
+    "name": "DeepL Write",
+    "type": "ai",
+    "priority": "optional",
+    "level": "B1-C1",
+    "best_for": [
+      "最後潤飾",
+      "自然度",
+      "語氣",
+      "簡潔表達"
+    ],
+    "how_to_use": "在自己寫完、AI 批改完、自己重寫後，最後再用 DeepL Write 檢查語氣與自然度。",
+    "paired_cards": [
+      "C42",
+      "C43",
+      "C45",
+      "C52"
+    ],
+    "warning": "不應取代前面的構思、輸出與錯誤整理。"
+  }
+]

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 英語學習互動指南 v2.2</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="brand">AI 英語學習互動指南</div>
+  <div class="version">v2.2 GitHub Pages Credit Final</div>
+  <nav>
+    <a href="#start">開始使用</a>
+    <a href="#ai-tools">AI 對應</a>
+    <a href="#chapter-1">認知篇</a>
+    <a href="#chapter-2">單詞篇</a>
+    <a href="#chapter-3">聽力篇</a>
+    <a href="#chapter-4">閱讀篇</a>
+    <a href="#chapter-5">口語篇</a>
+    <a href="#chapter-6">寫作篇</a>
+    <a href="#chapter-7">AI 篇</a>
+    <a href="#today">今日最小任務</a>
+    <a href="#resources">資源導航</a>
+    <a href="#toolbox">Prompt Toolbox</a>
+    <a href="#plan">30 天計畫</a>
+    <a href="#about">About</a>
+  </nav>
+</aside>
+<main>
+<section class="hero" id="start">
+  <h1>把英文學習變成「可開始、可練習、可複習」的 AI 工具</h1>
+  <p class="subtitle">這是 GitHub Pages 多檔版。首頁保持乾淨，章節、資源與 Prompt 卡分開放在 data 資料檔中，方便維護與擴充。</p>
+  <div class="quick-grid">
+    <div class="quick"><b>第一次使用</b><br>先做 C01 學習目標診斷，再做 C06 輸出驅動計畫。</div>
+    <div class="quick"><b>沒有材料</b><br>去 C08 / C14 / C53，選「請 AI 幫我生成」。</div>
+    <div class="quick"><b>有材料</b><br>貼單字、文章、影片逐字稿或作文，讓 AI 出題、批改、整理錯誤。</div>
+  </div>
+</section>
+
+
+<section class="section about" id="attribution-notice">
+  <div class="section-head"><span class="kicker">Attribution</span><h2>來源、授權與非官方改編說明</h2></div>
+  <p>本網站為非商業學習輔助用途，基於 byoungd 的開源項目 <b>English-level-up-tips</b> 進行教材化整理、繁體中文轉寫、互動流程設計與 Prompt 工具化改編。</p>
+  <p>原項目作者：byoungd ｜ 原授權：CC BY-NC 4.0 ｜ 原項目網址：<a href="https://github.com/byoungd/English-level-up-tips" target="_blank" rel="noopener">GitHub</a></p>
+  <p>本網站為非官方改編版本，不代表原作者立場，也未暗示原作者背書。</p>
+  <p><b>工具整理與互動設計：</b>林勝堂（KimiLin）<br><b>AI 協作輔助：</b>使用 AI 工具進行內容整理、重構與測試</p>
+</section>
+
+
+<section class="section" id="ai-tools">
+  <div class="section-head"><span class="kicker">AI Mapping</span><h2>建議搭配哪一個 AI？</h2></div>
+  <p><b>建議優先搭配 Gemini 使用。</b>原學習流程的 AI 篇偏向 Gemini 生態，例如 Gems、Gemini Live、Canvas、Guided Learning、Quiz / Flashcards。</p>
+  <p>但這個工具不是只能用 Gemini。ChatGPT、Claude 或其他 AI 也可以用，只要把專有功能換成相近用法。</p>
+  <div class="ai-map">
+    <div><b>Gem / Gems</b><br>自訂 AI 英文教練、Custom GPT、Project 或長期對話設定。</div>
+    <div><b>Gemini Live</b><br>語音對話、Voice Mode、一般口說角色扮演。</div>
+    <div><b>Canvas</b><br>寫作編輯區、Canvas、Artifacts 或一般對話改稿。</div>
+    <div><b>Guided Learning</b><br>要求 AI 逐步教你，不要直接給答案。</div>
+  </div>
+</section>
+
+<div id="loadStatus" class="status">資料載入中。如果你是用 file:// 直接打開，瀏覽器可能阻擋 JSON 載入；請上傳到 GitHub Pages 後使用。</div>
+<div id="chapters"></div>
+
+<section class="section" id="today">
+  <div class="section-head"><span class="kicker">Today Minimum Mode</span><h2>今天不知道練什麼？照這 15 分鐘做</h2></div>
+  <ol>
+    <li>用 <a class="pill" href="#card-C01">C01</a> 告訴 AI 你的程度與目標。</li>
+    <li>沒有材料就用 <a class="pill" href="#card-C08">C08</a> 選「請 AI 幫我生成」。</li>
+    <li>想練聽力用 <a class="pill" href="#card-C18">C18</a>；想練閱讀用 <a class="pill" href="#card-C25">C25</a>；想練寫作用 <a class="pill" href="#card-C41">C41</a>。</li>
+    <li>最後用 <a class="pill" href="#card-C58">C58</a> 留下今天錯誤，明天再練一次。</li>
+  </ol>
+</section>
+
+<section class="section" id="resources">
+  <div class="section-head"><span class="kicker">Resource Navigator</span><h2>資源導航：先選目標，再選材料</h2></div>
+  <p>資源不要收藏，請直接使用。每個資源都要知道：適合誰、怎麼用、搭配哪張 Prompt 卡。</p>
+  <div class="filters" id="resourceFilters">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="listening">聽力</button>
+    <button class="filter-btn" data-filter="reading">閱讀</button>
+    <button class="filter-btn" data-filter="speaking">口說</button>
+    <button class="filter-btn" data-filter="writing">寫作</button>
+    <button class="filter-btn" data-filter="vocabulary">單字 / Flashcards</button>
+    <button class="filter-btn" data-filter="ai">AI 工具</button>
+  </div>
+  <div class="resource-grid" id="resourceGrid"></div>
+</section>
+
+<section class="section" id="toolbox">
+  <div class="section-head"><span class="kicker">Prompt Toolbox</span><h2>Prompt 卡：打開、複製、貼到 AI</h2></div>
+  <p>本區共 60 張卡。每張卡都包含主 Prompt、二次追問，以及 AI 回覆後要做的事。</p>
+  <p class="copy-note">手機若無法自動複製，請長按 Prompt 文字框，全選後手動複製。</p>
+  <div class="prompt-toolbar" id="cardFilters">
+    <button class="filter-btn active" data-filter="all">全部</button>
+    <button class="filter-btn" data-filter="認知篇">認知篇</button>
+    <button class="filter-btn" data-filter="單詞篇">單詞篇</button>
+    <button class="filter-btn" data-filter="聽力篇">聽力篇</button>
+    <button class="filter-btn" data-filter="閱讀篇">閱讀篇</button>
+    <button class="filter-btn" data-filter="口語篇">口語篇</button>
+    <button class="filter-btn" data-filter="寫作篇">寫作篇</button>
+    <button class="filter-btn" data-filter="AI 篇">AI 篇</button>
+  </div>
+  <div id="promptCards"></div>
+</section>
+
+<section class="section" id="plan">
+  <div class="section-head"><span class="kicker">30-Day Plan</span><h2>30 天練習節奏</h2></div>
+  <p>每天只需要完成一個可驗收輸出。不要把計畫做成壓力表。</p>
+  <div class="quick-grid" id="planGrid"></div>
+</section>
+
+<section class="section about" id="about">
+  <div class="section-head"><span class="kicker">About</span><h2>完整來源、授權與邊界</h2></div>
+  <p>本網站為非商業學習輔助用途，基於 byoungd 的開源項目 <b>English-level-up-tips</b> 進行教材化整理、繁體中文轉寫、互動流程設計與 Prompt 工具化改編。</p>
+  <div class="source-list">
+    <p><b>原項目作者：</b>byoungd</p>
+    <p><b>原項目網址：</b><a href="https://github.com/byoungd/English-level-up-tips" target="_blank" rel="noopener">https://github.com/byoungd/English-level-up-tips</a></p>
+    <p><b>原授權：</b>CC BY-NC 4.0</p>
+    <p><b>授權說明：</b><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">https://creativecommons.org/licenses/by-nc/4.0/</a></p>
+  </div>
+  <p>本網站為非官方改編版本，已對原內容進行整理、節錄、重組、繁體中文轉寫與互動工具化設計；不代表原作者立場，也未暗示原作者背書。</p>
+  <p>本網站不登入、不串接 API、不上傳、不預設儲存使用者輸入。</p>
+  <p><b>工具整理與互動設計：</b>林勝堂（KimiLin）<br><b>AI 協作輔助：</b>使用 AI 工具進行內容整理、重構與測試</p>
+  <p>更多細節請見 <a href="LICENSE-NOTE.md">LICENSE-NOTE.md</a>、<a href="appendix/attribution.html">Attribution</a> 與 <a href="appendix/source-map.html">Source Map</a>。</p>
+</section>
+</main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

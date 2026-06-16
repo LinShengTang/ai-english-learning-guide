@@ -1,0 +1,21 @@
+{
+  "original_project": "byoungd/English-level-up-tips",
+  "original_repo": "https://github.com/byoungd/English-level-up-tips",
+  "github_pages": "https://byoungd.github.io/English-level-up-tips/",
+  "license": "CC BY-NC 4.0",
+  "adaptation": "繁體中文教材化整理、互動流程設計、Prompt 工具化改編",
+  "not_included_as_front_ui": [
+    "Word Lists / Word Packs 前台頁",
+    "Python / JavaScript / Go / Rust 工程詞表前台選單",
+    "原 repo 圖片 assets 全量搬運",
+    "第三方影片 / 圖片 / 商標素材重發"
+  ],
+  "included_modules": [
+    "七大主章",
+    "Resource Navigator",
+    "60 張 Prompt Cards",
+    "今日最小任務",
+    "30 天練習節奏",
+    "授權與來源頁"
+  ]
+}
