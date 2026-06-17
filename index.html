@@ -123,6 +123,14 @@ nav a{white-space:nowrap}
   textarea{min-height:180px}
 }
 
+
+.prompt-index{border:1px solid var(--line);background:#fffdf9;border-radius:18px;padding:14px;margin:14px 0}
+.prompt-index-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.prompt-index-grid a{display:block;border:1px solid var(--line);border-radius:999px;background:#fff;padding:8px 10px;text-decoration:none;font-size:14px;text-align:center}
+.prompt-card:target{outline:3px solid rgba(28,122,87,.35);box-shadow:0 0 0 8px rgba(28,122,87,.08)}
+@media(max-width:900px){.prompt-index-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.prompt-index-grid{grid-template-columns:1fr}.prompt-index-grid a{text-align:left}}
+
 </style>
 </head>
 <body id="top">
@@ -135,7 +143,7 @@ nav a{white-space:nowrap}
     <a href="#learning-routes">四條路線</a>
     <a href="#word-materials">單字素材庫</a>
     <a href="#resources">學習材料</a>
-    <a href="#prompts">Prompt 卡</a>
+    <a href="#toolbox">Prompt 卡</a>
     <a href="#week1">7 天啟動</a>
     <a href="#plan">30 天節奏</a>
     <a href="#about">About</a>
@@ -1963,8 +1971,21 @@ analyze, compare, contrast, describe, explain, summarize, infer, evidence, argum
 
 
 <section class="section" id="toolbox">
-  <div class="section-head"><span class="kicker">Prompt Toolbox</span><h2>Prompt 卡：打開、複製、貼到 AI</h2></div>
-  <p>本區共 60 張卡。每張卡都包含主 Prompt、二次追問，以及 AI 回覆後要做的事。</p><p class="copy-note">手機若無法自動複製，請長按 Prompt 文字框，全選後手動複製。</p>
+  <div class="section-head"><span class="kicker">Prompt Toolbox</span><h2>Prompt 卡：先用章節索引找卡，再打開複製</h2></div>
+  <p>本區共 60 張卡。每張卡都包含主 Prompt、二次追問，以及 AI 回覆後要做的事。</p>
+<div class="prompt-index" aria-label="Prompt 卡章節索引">
+  <p><b>快速找卡：</b>先選章節，再打開對應卡片。每張卡可直接複製主 Prompt。</p>
+  <div class="prompt-index-grid">
+    <a href="#card-C01">認知篇 C01–C07</a>
+    <a href="#card-C08">單詞篇 C08–C16</a>
+    <a href="#card-C17">聽力篇 C17–C24</a>
+    <a href="#card-C25">閱讀篇 C25–C32</a>
+    <a href="#card-C33">口說篇 C33–C40</a>
+    <a href="#card-C41">寫作篇 C41–C48</a>
+    <a href="#card-C49">AI 篇 C49–C60</a>
+  </div>
+</div>
+<p class="copy-note">手機若無法自動複製，請長按 Prompt 文字框，全選後手動複製。</p>
   <details class="prompt-card" id="card-C01" data-chapter="認知篇">
   <summary><b>C01｜學習目標診斷</b><span>認知篇</span></summary>
   <div class="meta-grid">
