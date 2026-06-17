@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AI 英語學習互動指南 v2.4</title>
+<title>AI 英語學習互動指南 v2.5</title>
 <style>
 :root {
   --bg:#F7F3EA; --panel:#FFFDF7; --side:#EEE7DA; --ink:#242424; --muted:#6f6658;
@@ -79,13 +79,25 @@ button{border:0;background:var(--green);color:white;border-radius:12px;padding:9
  textarea{width:calc(100% - 16px);min-height:220px}
  .prompt-card summary{align-items:flex-start;flex-direction:column}
 }
+
+.word-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.word-card{border:1px solid var(--line);border-radius:18px;background:#fffdf9;padding:16px}
+.word-card h3{margin:.3em 0 .5em}
+.word-list{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.word-chip{display:inline-block;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 8px;font-size:12px}
+.use-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.use-box{border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px}
+.route-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.route-card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:16px}
+@media(max-width:900px){.word-grid,.use-grid,.route-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <div class="layout">
 <aside>
   <div class="brand">AI 英語學習互動指南</div>
-  <div class="version">v2.4 No-Filter Static</div>
+  <div class="version">v2.5 Max Content Interactive</div>
   <nav>
     <a href="#start">開始使用</a>
     <a href="#attribution-notice">來源聲明</a>
@@ -98,6 +110,8 @@ button{border:0;background:var(--green);color:white;border-radius:12px;padding:9
     <a href="#chapter-6">寫作篇</a>
     <a href="#chapter-7">AI 篇</a>
     <a href="#today">今日最小任務</a>
+    <a href="#learning-routes">四條路線</a>
+    <a href="#word-materials">單字素材庫</a>
     <a href="#resources">資源導航</a>
     <a href="#toolbox">Prompt Toolbox</a>
     <a href="#plan">30 天計畫</a>
@@ -1140,6 +1154,246 @@ button{border:0;background:var(--green);color:white;border-radius:12px;padding:9
     <li>想練聽力用 <a class="pill" href="#card-C18">C18</a>；想練閱讀用 <a class="pill" href="#card-C25">C25</a>；想練寫作用 <a class="pill" href="#card-C41">C41</a>。</li>
     <li>最後用 <a class="pill" href="#card-C58">C58</a> 留下今天錯誤，明天再練一次。</li>
   </ol>
+</section>
+
+
+
+<section class="section" id="learning-routes">
+  <div class="section-head"><span class="kicker">Learning Routes</span><h2>四條常用路線：不知道怎麼用時從這裡開始</h2></div>
+  <div class="route-grid">
+    <div class="route-card"><h3>路線 A｜我今天沒有材料</h3><ol><li>從單字素材庫選一組。</li><li>複製該組 Prompt 到 AI。</li><li>完成測驗後，用 <a href="#card-C58" class="pill">C58</a> 留下錯誤。</li></ol></div>
+    <div class="route-card"><h3>路線 B｜我有文章 / 逐字稿</h3><ol><li>貼材料到 <a href="#card-C25" class="pill">C25</a> 或 <a href="#card-C53" class="pill">C53</a>。</li><li>請 AI 先出題，不要直接給答案。</li><li>答完後整理錯題與 Flashcards。</li></ol></div>
+    <div class="route-card"><h3>路線 C｜我想練口說</h3><ol><li>用 <a href="#card-C36" class="pill">C36</a> 或 <a href="#card-C50" class="pill">C50</a> 開 5 輪對話。</li><li>每 2 輪要求 AI 修正一次。</li><li>最後重說一次。</li></ol></div>
+    <div class="route-card"><h3>路線 D｜我想練寫作</h3><ol><li>自己先寫 80–150 字。</li><li>用 <a href="#card-C41" class="pill">C41</a> 或 <a href="#card-C52" class="pill">C52</a> 批改。</li><li>不要只看答案，要自己重寫第二版。</li></ol></div>
+  </div>
+</section>
+
+<section class="section" id="word-materials">
+  <div class="section-head"><span class="kicker">Word Materials</span><h2>單字素材庫：沒有材料時，從這裡選一組</h2></div>
+  <p>這裡把原項目的 Word Lists 轉成可操作的單字素材庫。你不需要一次背完；選一組詞，貼到 AI，做語境學習、Flashcards 或 Quiz。</p>
+  <div class="word-grid">
+    
+<details class="word-card">
+  <summary><b>Common｜技術與學習常用英文</b><span>62 words</span></summary>
+  <div class="word-list"><span class="word-chip">abstraction</span><span class="word-chip">algorithm</span><span class="word-chip">architecture</span><span class="word-chip">asynchronous</span><span class="word-chip">atomic</span><span class="word-chip">benchmark</span><span class="word-chip">binary</span><span class="word-chip">bug</span><span class="word-chip">cache</span><span class="word-chip">callback</span><span class="word-chip">coercion</span><span class="word-chip">compile</span><span class="word-chip">concurrency</span><span class="word-chip">constraint</span><span class="word-chip">context</span><span class="word-chip">debug</span><span class="word-chip">dependency</span><span class="word-chip">deploy</span><span class="word-chip">deterministic</span><span class="word-chip">dispatch</span><span class="word-chip">encapsulation</span><span class="word-chip">endpoint</span><span class="word-chip">event</span><span class="word-chip">loop</span><span class="word-chip">framework</span><span class="word-chip">garbage</span><span class="word-chip">collection</span><span class="word-chip">generic</span><span class="word-chip">granularity</span><span class="word-chip">immutable</span><span class="word-chip">immediate</span><span class="word-chip">implement</span><span class="word-chip">inheritance</span><span class="word-chip">interface</span><span class="word-chip">latency</span><span class="word-chip">library</span><span class="word-chip">lifecycle</span><span class="word-chip">memory</span><span class="word-chip">microservice</span><span class="word-chip">middleware</span><span class="word-chip">mutation</span><span class="word-chip">optimization</span><span class="word-chip">overhead</span><span class="word-chip">performance</span><span class="word-chip">polymorphism</span><span class="word-chip">pragmatic</span><span class="word-chip">precedence</span><span class="word-chip">protocol</span><span class="word-chip">refactor</span><span class="word-chip">reliability</span><span class="word-chip">resource</span><span class="word-chip">robust</span><span class="word-chip">schema</span><span class="word-chip">serialize</span><span class="word-chip">syntax</span><span class="word-chip">throughput</span><span class="word-chip">thread</span><span class="word-chip">timeout</span><span class="word-chip">trace</span><span class="word-chip">undefined</span><span class="word-chip">behavior</span><span class="word-chip">versioning</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+abstraction, algorithm, architecture, asynchronous, atomic, benchmark, binary, bug, cache, callback, coercion, compile, concurrency, constraint, context, debug, dependency, deploy, deterministic, dispatch, encapsulation, endpoint, event, loop, framework, garbage, collection, generic, granularity, immutable, immediate, implement, inheritance, interface, latency, library, lifecycle, memory, microservice, middleware, mutation, optimization, overhead, performance, polymorphism, pragmatic, precedence, protocol, refactor, reliability, resource, robust, schema, serialize, syntax, throughput, thread, timeout, trace, undefined, behavior, versioning
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Prompt / AI｜AI 工具與提示詞英文</b><span>46 words</span></summary>
+  <div class="word-list"><span class="word-chip">acceptance</span><span class="word-chip">criteria</span><span class="word-chip">constraints</span><span class="word-chip">context</span><span class="word-chip">context</span><span class="word-chip">window</span><span class="word-chip">delimiter</span><span class="word-chip">developer</span><span class="word-chip">message</span><span class="word-chip">evaluation</span><span class="word-chip">few-shot</span><span class="word-chip">format</span><span class="word-chip">spec</span><span class="word-chip">function</span><span class="word-chip">calling</span><span class="word-chip">guardrails</span><span class="word-chip">instruction</span><span class="word-chip">hierarchy</span><span class="word-chip">JSON</span><span class="word-chip">schema</span><span class="word-chip">negative</span><span class="word-chip">prompt</span><span class="word-chip">output</span><span class="word-chip">format</span><span class="word-chip">persona</span><span class="word-chip">prompt</span><span class="word-chip">template</span><span class="word-chip">prompt</span><span class="word-chip">injection</span><span class="word-chip">RAG</span><span class="word-chip">retrieval</span><span class="word-chip">role</span><span class="word-chip">rubric</span><span class="word-chip">stop</span><span class="word-chip">sequence</span><span class="word-chip">system</span><span class="word-chip">prompt</span><span class="word-chip">temperature</span><span class="word-chip">token</span><span class="word-chip">token</span><span class="word-chip">budget</span><span class="word-chip">tool</span><span class="word-chip">use</span><span class="word-chip">user</span><span class="word-chip">prompt</span><span class="word-chip">zero-shot</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+acceptance, criteria, constraints, context, context, window, delimiter, developer, message, evaluation, few-shot, format, spec, function, calling, guardrails, instruction, hierarchy, JSON, schema, negative, prompt, output, format, persona, prompt, template, prompt, injection, RAG, retrieval, role, rubric, stop, sequence, system, prompt, temperature, token, token, budget, tool, use, user, prompt, zero-shot
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Vibe Coding / Agent｜AI Agent 與開發流程英文</b><span>51 words</span></summary>
+  <div class="word-list"><span class="word-chip">agent</span><span class="word-chip">agentic</span><span class="word-chip">autopilot</span><span class="word-chip">boilerplate</span><span class="word-chip">brain</span><span class="word-chip">dump</span><span class="word-chip">codegen</span><span class="word-chip">context</span><span class="word-chip">window</span><span class="word-chip">copy-paste</span><span class="word-chip">programming</span><span class="word-chip">diff</span><span class="word-chip">edit</span><span class="word-chip">loop</span><span class="word-chip">fast</span><span class="word-chip">feedback</span><span class="word-chip">flow</span><span class="word-chip">guardrails</span><span class="word-chip">hallucination</span><span class="word-chip">human-in-the-loop</span><span class="word-chip">incremental</span><span class="word-chip">changes</span><span class="word-chip">iteration</span><span class="word-chip">lint</span><span class="word-chip">minimal</span><span class="word-chip">repro</span><span class="word-chip">pair</span><span class="word-chip">programming</span><span class="word-chip">patch</span><span class="word-chip">prompt-driven</span><span class="word-chip">prototype</span><span class="word-chip">quickstart</span><span class="word-chip">refactor</span><span class="word-chip">regression</span><span class="word-chip">review</span><span class="word-chip">rubber</span><span class="word-chip">ducking</span><span class="word-chip">sandbox</span><span class="word-chip">scaffolding</span><span class="word-chip">scope</span><span class="word-chip">creep</span><span class="word-chip">smoke</span><span class="word-chip">test</span><span class="word-chip">spike</span><span class="word-chip">telemetry</span><span class="word-chip">test</span><span class="word-chip">harness</span><span class="word-chip">timebox</span><span class="word-chip">tooling</span><span class="word-chip">trace</span><span class="word-chip">triage</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+agent, agentic, autopilot, boilerplate, brain, dump, codegen, context, window, copy-paste, programming, diff, edit, loop, fast, feedback, flow, guardrails, hallucination, human-in-the-loop, incremental, changes, iteration, lint, minimal, repro, pair, programming, patch, prompt-driven, prototype, quickstart, refactor, regression, review, rubber, ducking, sandbox, scaffolding, scope, creep, smoke, test, spike, telemetry, test, harness, timebox, tooling, trace, triage
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Python｜Python 文件英文</b><span>46 words</span></summary>
+  <div class="word-list"><span class="word-chip">approximate</span><span class="word-chip">backport</span><span class="word-chip">circumstance</span><span class="word-chip">coercion</span><span class="word-chip">compound</span><span class="word-chip">contiguous</span><span class="word-chip">decoupling</span><span class="word-chip">deliberately</span><span class="word-chip">dispatch</span><span class="word-chip">generic</span><span class="word-chip">function</span><span class="word-chip">granularity</span><span class="word-chip">gratuitously</span><span class="word-chip">heterogeneous</span><span class="word-chip">hierarchies</span><span class="word-chip">homogeneous</span><span class="word-chip">inheritance</span><span class="word-chip">introspection</span><span class="word-chip">provisional</span><span class="word-chip">robust</span><span class="word-chip">short-circuit</span><span class="word-chip">wildcard</span><span class="word-chip">open-circuit</span><span class="word-chip">contingency</span><span class="word-chip">feedback</span><span class="word-chip">sinusoidal</span><span class="word-chip">async</span><span class="word-chip">await</span><span class="word-chip">bytecode</span><span class="word-chip">comprehension</span><span class="word-chip">coroutine</span><span class="word-chip">dataclass</span><span class="word-chip">decorator</span><span class="word-chip">duck</span><span class="word-chip">typing</span><span class="word-chip">generator</span><span class="word-chip">GIL</span><span class="word-chip">import</span><span class="word-chip">iterator</span><span class="word-chip">lambda</span><span class="word-chip">mypy</span><span class="word-chip">pip</span><span class="word-chip">pytest</span><span class="word-chip">type</span><span class="word-chip">hint</span><span class="word-chip">virtualenv</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+approximate, backport, circumstance, coercion, compound, contiguous, decoupling, deliberately, dispatch, generic, function, granularity, gratuitously, heterogeneous, hierarchies, homogeneous, inheritance, introspection, provisional, robust, short-circuit, wildcard, open-circuit, contingency, feedback, sinusoidal, async, await, bytecode, comprehension, coroutine, dataclass, decorator, duck, typing, generator, GIL, import, iterator, lambda, mypy, pip, pytest, type, hint, virtualenv
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>JavaScript｜JavaScript 文件英文</b><span>29 words</span></summary>
+  <div class="word-list"><span class="word-chip">animation</span><span class="word-chip">async</span><span class="word-chip">await</span><span class="word-chip">canvas</span><span class="word-chip">closure</span><span class="word-chip">decode</span><span class="word-chip">document</span><span class="word-chip">element</span><span class="word-chip">event</span><span class="word-chip">loop</span><span class="word-chip">fetch</span><span class="word-chip">frames</span><span class="word-chip">hoisting</span><span class="word-chip">JSON</span><span class="word-chip">localStorage</span><span class="word-chip">Infinity</span><span class="word-chip">navigator</span><span class="word-chip">npm</span><span class="word-chip">performance</span><span class="word-chip">promise</span><span class="word-chip">prompt</span><span class="word-chip">prototype</span><span class="word-chip">runtime</span><span class="word-chip">screen</span><span class="word-chip">scroll</span><span class="word-chip">typeof</span><span class="word-chip">undefined</span><span class="word-chip">yield</span><span class="word-chip">webpack</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+animation, async, await, canvas, closure, decode, document, element, event, loop, fetch, frames, hoisting, JSON, localStorage, Infinity, navigator, npm, performance, promise, prompt, prototype, runtime, screen, scroll, typeof, undefined, yield, webpack
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Go｜Go 文件英文</b><span>26 words</span></summary>
+  <div class="word-list"><span class="word-chip">buffered</span><span class="word-chip">channel</span><span class="word-chip">channel</span><span class="word-chip">context</span><span class="word-chip">defer</span><span class="word-chip">embedding</span><span class="word-chip">escape</span><span class="word-chip">analysis</span><span class="word-chip">go</span><span class="word-chip">mod</span><span class="word-chip">goroutine</span><span class="word-chip">interface</span><span class="word-chip">map</span><span class="word-chip">mutex</span><span class="word-chip">package</span><span class="word-chip">pointer</span><span class="word-chip">receiver</span><span class="word-chip">select</span><span class="word-chip">slice</span><span class="word-chip">struct</span><span class="word-chip">sync</span><span class="word-chip">testing</span><span class="word-chip">type</span><span class="word-chip">assertion</span><span class="word-chip">zero</span><span class="word-chip">value</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+buffered, channel, channel, context, defer, embedding, escape, analysis, go, mod, goroutine, interface, map, mutex, package, pointer, receiver, select, slice, struct, sync, testing, type, assertion, zero, value
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Java｜Java 文件英文</b><span>88 words</span></summary>
+  <div class="word-list"><span class="word-chip">abstract</span><span class="word-chip">aforementioned</span><span class="word-chip">application</span><span class="word-chip">appropriate</span><span class="word-chip">arithmetic</span><span class="word-chip">aspect</span><span class="word-chip">associate</span><span class="word-chip">attribute</span><span class="word-chip">atomic</span><span class="word-chip">buffer</span><span class="word-chip">cache</span><span class="word-chip">component</span><span class="word-chip">concurrent</span><span class="word-chip">conjunction</span><span class="word-chip">connection</span><span class="word-chip">constrain</span><span class="word-chip">context</span><span class="word-chip">correspond</span><span class="word-chip">costly</span><span class="word-chip">declared</span><span class="word-chip">default</span><span class="word-chip">deliberate</span><span class="word-chip">descriptor</span><span class="word-chip">destructive</span><span class="word-chip">deterministic</span><span class="word-chip">equivalence</span><span class="word-chip">extend</span><span class="word-chip">external</span><span class="word-chip">final</span><span class="word-chip">flush</span><span class="word-chip">hierarchical</span><span class="word-chip">implements</span><span class="word-chip">impose</span><span class="word-chip">inconsistent</span><span class="word-chip">indicating</span><span class="word-chip">instance</span><span class="word-chip">interface</span><span class="word-chip">interpreted</span><span class="word-chip">iterator</span><span class="word-chip">library</span><span class="word-chip">malicious</span><span class="word-chip">manipulated</span><span class="word-chip">multicast</span><span class="word-chip">notation</span><span class="word-chip">object</span><span class="word-chip">oriented</span><span class="word-chip">obsolete</span><span class="word-chip">optimization</span><span class="word-chip">pointcut</span><span class="word-chip">primitive</span><span class="word-chip">prohibit</span><span class="word-chip">provider</span><span class="word-chip">reconstruct</span><span class="word-chip">resource</span><span class="word-chip">retrieve</span><span class="word-chip">scanline</span><span class="word-chip">schema</span><span class="word-chip">sequence</span><span class="word-chip">serialize</span><span class="word-chip">static</span><span class="word-chip">stipulation</span><span class="word-chip">synchronized</span><span class="word-chip">thread</span><span class="word-chip">underlying</span><span class="word-chip">unsigned</span><span class="word-chip">volatile</span><span class="word-chip">bytecode</span><span class="word-chip">classpath</span><span class="word-chip">comparable</span><span class="word-chip">comparator</span><span class="word-chip">completablefuture</span><span class="word-chip">dependency</span><span class="word-chip">injection</span><span class="word-chip">garbage</span><span class="word-chip">collection</span><span class="word-chip">generic</span><span class="word-chip">heap</span><span class="word-chip">JDK</span><span class="word-chip">JRE</span><span class="word-chip">JVM</span><span class="word-chip">lambda</span><span class="word-chip">module</span><span class="word-chip">reflection</span><span class="word-chip">runtime</span><span class="word-chip">stack</span><span class="word-chip">stream</span><span class="word-chip">type</span><span class="word-chip">erasure</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+abstract, aforementioned, application, appropriate, arithmetic, aspect, associate, attribute, atomic, buffer, cache, component, concurrent, conjunction, connection, constrain, context, correspond, costly, declared, default, deliberate, descriptor, destructive, deterministic, equivalence, extend, external, final, flush, hierarchical, implements, impose, inconsistent, indicating, instance, interface, interpreted, iterator, library, malicious, manipulated, multicast, notation, object, oriented, obsolete, optimization, pointcut, primitive, prohibit, provider, reconstruct, resource, retrieve, scanline, schema, sequence, serialize, static, stipulation, synchronized, thread, underlying, unsigned, volatile, bytecode, classpath, comparable, comparator, completablefuture, dependency, injection, garbage, collection, generic, heap, JDK, JRE, JVM, lambda, module, reflection, runtime, stack, stream, type, erasure
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>PHP｜PHP 文件英文</b><span>24 words</span></summary>
+  <div class="word-list"><span class="word-chip">syntax</span><span class="word-chip">protocol</span><span class="word-chip">wrapper</span><span class="word-chip">binary</span><span class="word-chip">composer</span><span class="word-chip">session</span><span class="word-chip">quote</span><span class="word-chip">persistent</span><span class="word-chip">garbage</span><span class="word-chip">manipulate</span><span class="word-chip">authentic</span><span class="word-chip">specific</span><span class="word-chip">crypto</span><span class="word-chip">generate</span><span class="word-chip">autoload</span><span class="word-chip">namespace</span><span class="word-chip">trait</span><span class="word-chip">mysqli</span><span class="word-chip">PDO</span><span class="word-chip">opcode</span><span class="word-chip">session</span><span class="word-chip">cookie</span><span class="word-chip">serialization</span><span class="word-chip">templating</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+syntax, protocol, wrapper, binary, composer, session, quote, persistent, garbage, manipulate, authentic, specific, crypto, generate, autoload, namespace, trait, mysqli, PDO, opcode, session, cookie, serialization, templating
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Swift｜Swift 文件英文</b><span>28 words</span></summary>
+  <div class="word-list"><span class="word-chip">infix</span><span class="word-chip">prefix</span><span class="word-chip">postfix</span><span class="word-chip">unary</span><span class="word-chip">overflow</span><span class="word-chip">guard</span><span class="word-chip">bitwise</span><span class="word-chip">extension</span><span class="word-chip">protocol</span><span class="word-chip">internal</span><span class="word-chip">clause</span><span class="word-chip">constraint</span><span class="word-chip">optional</span><span class="word-chip">closures</span><span class="word-chip">actor</span><span class="word-chip">ARC</span><span class="word-chip">async</span><span class="word-chip">await</span><span class="word-chip">class</span><span class="word-chip">enum</span><span class="word-chip">generic</span><span class="word-chip">initializer</span><span class="word-chip">mutating</span><span class="word-chip">property</span><span class="word-chip">wrapper</span><span class="word-chip">struct</span><span class="word-chip">type</span><span class="word-chip">inference</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+infix, prefix, postfix, unary, overflow, guard, bitwise, extension, protocol, internal, clause, constraint, optional, closures, actor, ARC, async, await, class, enum, generic, initializer, mutating, property, wrapper, struct, type, inference
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+<details class="word-card">
+  <summary><b>Rust｜Rust 文件英文</b><span>46 words</span></summary>
+  <div class="word-list"><span class="word-chip">allocator</span><span class="word-chip">async</span><span class="word-chip">await</span><span class="word-chip">borrow</span><span class="word-chip">borrow</span><span class="word-chip">checker</span><span class="word-chip">boxing</span><span class="word-chip">cargo</span><span class="word-chip">crate</span><span class="word-chip">derive</span><span class="word-chip">drop</span><span class="word-chip">dyn</span><span class="word-chip">enum</span><span class="word-chip">feature</span><span class="word-chip">flag</span><span class="word-chip">foreign</span><span class="word-chip">function</span><span class="word-chip">interface</span><span class="word-chip">generic</span><span class="word-chip">impl</span><span class="word-chip">interior</span><span class="word-chip">mutability</span><span class="word-chip">iterator</span><span class="word-chip">lifetimes</span><span class="word-chip">macro</span><span class="word-chip">match</span><span class="word-chip">monomorphization</span><span class="word-chip">move</span><span class="word-chip">mut</span><span class="word-chip">mutex</span><span class="word-chip">ownership</span><span class="word-chip">panic</span><span class="word-chip">pattern</span><span class="word-chip">matching</span><span class="word-chip">pin</span><span class="word-chip">pub</span><span class="word-chip">reference</span><span class="word-chip">result</span><span class="word-chip">rustfmt</span><span class="word-chip">send</span><span class="word-chip">sync</span><span class="word-chip">trait</span><span class="word-chip">type</span><span class="word-chip">inference</span><span class="word-chip">unsafe</span><span class="word-chip">workspace</span></div>
+  <div class="use-grid">
+    <div class="use-box"><b>語境學習</b><br>搭配 <a href="#card-C08" class="pill">C08</a>，先理解用法再造句。</div>
+    <div class="use-box"><b>Flashcards</b><br>搭配 <a href="#card-C14" class="pill">C14</a>，整理成可複習卡片。</div>
+    <div class="use-box"><b>Quiz</b><br>搭配 <a href="#card-C53" class="pill">C53</a>，先出題再批改。</div>
+  </div>
+  <label class="small-label">用這組詞開始練習</label>
+  <textarea readonly>請你擔任我的英文單字教練。我想用這組單字做語境學習：
+
+allocator, async, await, borrow, borrow, checker, boxing, cargo, crate, derive, drop, dyn, enum, feature, flag, foreign, function, interface, generic, impl, interior, mutability, iterator, lifetimes, macro, match, monomorphization, move, mut, mutex, ownership, panic, pattern, matching, pin, pub, reference, result, rustfmt, send, sync, trait, type, inference, unsafe, workspace
+
+請先不要一次講完。請分三步進行：
+1. 先挑 10 個最適合我今天程度的詞，給繁中簡短解釋與自然英文例句。
+2. 接著出 5 題填空題與 3 題造句題，不要先給答案。
+3. 等我回答後，請批改並整理成 Flashcards 表格。
+
+請避免只翻譯單字，要讓我知道它在英文文件、AI 工具或技術情境中怎麼用。</textarea>
+  <button onclick="copyFrom(this)">複製這組詞練習 Prompt</button>
+</details>
+
+  </div>
 </section>
 
 <section class="section" id="resources">
